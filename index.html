@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-100': '#909090',
+            'dark-200': '#707070',
+            'dark-300': '#505050',
+            'dark-300': '#202020',
+            'dark-400': '#000000',
+            'light-100': '#FDFEFE',
+            'light-200': '#FBFCFC',
+            'light-300': '#BFC9CA',
+            'light-400': '#FDFEFE'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="w-screen h-screen">
+  <div class="w-full h-full flex">
+    <div class="nav-bar w-[5%] bg-dark-400 flex flex-col justify-between">
+      <ul class="w-full  flex-col h-auto p-2 space-y-2">
+        <li
+          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/home.svg" style="filter: invert(1);" alt="" srcset=""></li>
+        <li
+          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/code.svg" style="filter: invert(1);" alt="" srcset=""></li>
+        <li
+          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset=""></li>
+      </ul>
+      <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
+        <li
+          class="w-full rounded-lg text-light-400 bottom-0 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/arrow-left.svg" style="filter: invert(1);" alt="" srcset=""></li>
+      </ul>
+    </div>
+    <div class="main h-full flex-grow bg-dark-300">
+      <div class="flex flex-col w-full h-full p-2">
+        <div class="flex-grow w-full"></div>
+        <div class="h-[10vh] bottom=0 w-full flex justify-center items-center ">
+          <div class="w-[90%] h-full flex justify-between space-x-2">
+            <textarea style="resize: none;" name="" id="" class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
+            <div class="h-full p-2 bg-slate-400 rounded-full aspect-square flex justify-center items-center">
+              <img src="assests/send.svg" alt="" srcset="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Here is Jquery Code -->
+  <script>
+    // here is document Ready Script
+    $(document).ready(() => {
+      console.log('hello')
+    })
+    // Here are general Function
+  </script>
+</body>
+
+</html>
