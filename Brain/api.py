@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 from AiList import AIs
 AIs = AIs()
-@app.route('/home', methods=['POST'])
+@app.route('/', methods=['POST'])
 def home():
     try:
         messages = request.json.get('messages')
@@ -44,4 +44,4 @@ def home():
         return 'Error in Processing the Request', 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
