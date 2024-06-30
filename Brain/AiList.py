@@ -1,4 +1,4 @@
-from LLM_function import *
+from Brain.LLM_function import *
 def AIs():
     llm_list = {
         'Groq-llama-3-70b':
@@ -22,16 +22,16 @@ def AIs():
             'function':MyGroq,
             'paramters':['messages','key','model']
             },
-        'gemini-1.5-Pro':
+        'gemini-1.5-pro':
             {
-            'name': '1.5-Pro',
+            'name': '1.5-pro',
             'provider': 'gemini',
             'function':MyGemini,
             'paramters':['messages','key','model']
             },
-        'gemini-1.5-Flash':
+        'gemini-1.5-flash':
             {
-            'name': '1.5-Flash',
+            'name': '1.5-flash',
             'provider': 'gemini',
             'function':MyGemini,
             'paramters':['messages','key','model']

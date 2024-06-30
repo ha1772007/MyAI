@@ -1,5 +1,6 @@
 
-from Providers.mygroq import *
+from Brain.Providers.mygroq import *
+from Brain.Providers.mygemini import GeminiMyClient
 def MyGroq(messages,key,model='llama-3-70b'):
     
     if(key):
@@ -19,6 +20,24 @@ def MyGroq(messages,key,model='llama-3-70b'):
 
     elif(model == 'mixtral-8x7b'):
         return GroqMyClient.Groq_ask(messages=messages,model='mixtral-8x7b-32768',key=key)
+    else:
+        return 'Now a known Model'
+    return 'Under Maintainance'
+def MyGemini(messages,key,model):
+    if(key):
+        pass
+    else:
+        return 'Provide a Valid API key'
+    print(type(messages))
+    print(model)
+    try:
+        messages = json.loads(messages)
+    except:
+        return 'Type: Invalid Message Formate \nType of Message is Not JSON santizable'
+    if(model == '1.5-pro'):
+        return GeminiMyClient.Gemini_ask(messages=messages,model='1.5-pro',key=key)
+    elif(model == '1.5-flash'):
+        return GeminiMyClient.Gemini_ask(messages=messages,model='1.5-flash',key=key)
     else:
         return 'Now a known Model'
     return 'Under Maintainance'
