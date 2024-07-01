@@ -28,6 +28,38 @@
 </head>
 
 <body class="w-screen h-screen">
+  <div onclick="settings()" class="absolute w-screen h-screen z-10 opacity-15 bg-dark-400">
+
+  </div>
+  <div class="absolute w-screen h-screen z-20 flex items-center justify-center">
+    <div class="w-4/5 h-4/5 border-dark-400 border-2 text-white bg-dark-200 p-1 rounded-lg">
+      <div class="flex w-full h-full">
+        <div class='w-1/5 bg-dark-300 border-dark-100 border-2'>
+          <ul class="w-full p-2">
+            <li class='border-blue-500 border-2 w-full p-2 rounded-md text-md bg-dark-400 hover:bg-dark-200 cursor-pointer'>Text Generation model
+            </li>
+          </ul>
+        </div>
+        <div class="flex-grow h-full">
+          <div class='w-full h-full overflow-auto'>
+            <div class="w-full p-4 space-y-4">
+              <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full" href='https://console.groq.com/keys'>Groq Models</a></div>
+              <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-green-600">llama-3-70B</div>
+                <div class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-blue-600">llama-3-8B</div>
+              </div>
+              <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-blue-600">API-ey..rr</div>
+                <div class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-green-600">API-ey..rr</div>
+                <div class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="w-full h-full flex">
     <div class="nav-bar w-[7%] bg-dark-400 flex flex-col justify-between">
       <ul class="w-full  flex-col h-auto p-2 space-y-2">
@@ -43,6 +75,11 @@
           class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
           <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
+        <li onclick="settings()"
+          class="cursor-pointer w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/settings.svg" style="filter: invert(1);" alt="" srcset="">
+        </li>
+
       </ul>
       <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
         <li
@@ -122,6 +159,14 @@
 
   <!-- Here is Jquery Style Code -->
   <script>
+    // Here is GUI congif
+    function settings() {
+      $('#settings-box').show()
+      load_settings()
+    }
+    function load_settings() {
+
+    }
     // here is document Ready Script
     $(document).ready(() => {
       console.log('hello')
@@ -135,18 +180,18 @@
       $('#message_container').append(content)
       $('#send_input').val('')
       // Here is AI response Logic
-      data =  {
-          question: question,
-          AI:'llama-3-70B',
-        }
-      if(chatid !== undefined && chatid !== null && chatid !==''){
+      data = {
+        question: question,
+        AI: 'llama-3-70B',
+      }
+      if (chatid !== undefined && chatid !== null && chatid !== '') {
         data['chat_id'] = chatid;
       }
       // Here is now API endpoint to be added
       $.ajax({
         url: '', // Replace with your URL
         type: 'POST',
-        data:data,
+        data: data,
         success: function (response) {
           $('#response').html('Response: ' + JSON.stringify(response));
         },
