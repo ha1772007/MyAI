@@ -9,9 +9,9 @@ function load_settings() {
                       <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
                           href='https://console.groq.com/keys'>Groq Models</a></div>
                       <div class="models  grid grid-cols-3 space-x-2 ml-2">
-                        <div onclick="set_default_model('groq','llama-3-70B')" modelid="llama-3-70B"  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-70B
+                        <div onclick="set_default_model('groq','llama3-70b-8192')" modelid="groq-llama3-70b-8192"  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-70B
                         </div>
-                        <div onclick="set_default_model('groq','llama-3-8B')" modelid="llama-3-8B"  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-8B
+                        <div onclick="set_default_model('groq','llama3-8b-8192')" modelid="groq-llama3-8b-8192"  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-8B
                         </div>
                       </div>
                       <div Apihandle="Groq" class="models  grid grid-cols-3 space-x-2 ml-2">
@@ -44,8 +44,8 @@ function load_settings() {
   }
   // set Default Border Colour
   try{
-    $('[modelid=' + $.parseJSON(getCookie('default')).model.model + ']').removeClass('border-blue-600');
-    $('[modelid=' + $.parseJSON(getCookie('default')).model.model + ']').addClass('border-green-600');
+    $('[modelid=' +$.parseJSON(getCookie('default')).model.provider+'-'+$.parseJSON(getCookie('default')).model.model + ']').removeClass('border-blue-600');
+    $('[modelid=' +$.parseJSON(getCookie('default')).model.provider+'-'+$.parseJSON(getCookie('default')).model.model + ']').addClass('border-green-600');
   } catch (error) {
     console.log(error.message)
   }

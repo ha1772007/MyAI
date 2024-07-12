@@ -7,6 +7,7 @@ function add_api(provider) {
         setCookie(provider, previousdata)
 
         })
+        
     } else {
         var inital_data = {
             api: []
@@ -16,7 +17,8 @@ function add_api(provider) {
         setCookie(provider, inital_data)
 
         })
+        
     }
-    
+    load_settings()
 }
 
