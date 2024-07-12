@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.4"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -28,6 +28,49 @@
 </head>
 
 <body class="w-screen h-screen">
+  <!--Ssetting Toggle -->
+  <div onclick="settings()" id='setting_rm_click' class="absolute w-screen h-screen z-10 opacity-5 bg-black hidden">
+  </div>
+  <!-- /Setting Toggle -->
+  <!-- Settings Main -->
+  <div id='setting_main' class="hidden absolute w-[75vw] h-[75vh] mx-[12.5vw] my-[12.5vh] z-20">
+    <div class="w-full h-full border-dark-400 border-2 text-white bg-dark-200 p-1 rounded-lg">
+      <div class="flex w-full h-full">
+        <div class='w-1/5 bg-dark-300 border-dark-100 border-2'>
+          <ul class="w-full p-2">
+            <li
+              class='border-blue-500 border-2 w-full p-2 rounded-md text-md bg-dark-400 hover:bg-dark-200 cursor-pointer'>
+              Text Generation model
+            </li>
+          </ul>
+        </div>
+        <div id='settings_main' class="flex-grow h-full">
+          <div class='w-full h-full overflow-auto'>
+            <div class="w-full p-4 space-y-4">
+              <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
+                  href='https://console.groq.com/keys'>Groq Models</a></div>
+              <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div onclick="set_default_model('groq','llama3-70b-8192')" modelid="groq-llama3-70b-8192"
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-70B
+                </div>
+                <div onclick="set_default_model('groq','llama3-8b-8192')" modelid="groq-llama3-8b-8192"
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-8B
+                </div>
+              </div>
+              <div Apihandle="Groq" class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div onclick='add_api("groq")' k
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
+                    src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
+                    class="ml-2"> Add API</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- /Setting main -->
   <div class="w-full h-full flex">
     <div class="nav-bar w-[7%] bg-dark-400 flex flex-col justify-between">
       <ul class="w-full  flex-col h-auto p-2 space-y-2">
@@ -43,6 +86,11 @@
           class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
           <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
+        <li onclick="settings()"
+          class="cursor-pointer w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          <img src="assests/settings.svg" style="filter: invert(1);" alt="" srcset="">
+        </li>
+
       </ul>
       <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
         <li
@@ -66,42 +114,7 @@
               </ul>
             </div>
             <div id='message_container' class="flex-grow p-2 space-y-4 flex flex-col items-center text-white">
-              <div class="AI-message h-auto w-[99%] flex p-2">
-                <div class="w-[70%] bg-dark-400 rounded-l-md p-2 min-h-[20vh]">Lorem ipsum, dolor sit amet consectetur
-                  adipisicing
-                  elit. Non
-                  sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque fugit rem similique
-                  quaerat dolorem deserunt at veniam velit!</div>
-                <div class="w-[30%] bg-dark-400 auto-shrink h-full rounded-r-md p-2 ">
-                  <div class="w-full p-2 h-[7vh] flex flex-col">
-                    <div class="w-full h-[100%] flex space-x-2"
-                      h-hover="Wikipedia is a free content online encyclopedia written and maintained by a community of volunteers, known as Wikipedians, through open collaboration and the wiki software MediaWiki. Wikipedia is the largest and most-read reference work in history, and is consistently ranked among the ten most visited websites; as of May 2024 , it was ranked fifth by Semrush, and sixth by">
-                      <div class="aspect-sqaure h-full bg-white rounded-full p-1"><img class='h-full'
-                          src="https://th.bing.com/th?id=ODLS.9d837793-b21b-4809-aceb-f60f4a0b6408&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
-                          alt="" srcset=""></div>
-                      <div class="w-full flex-grow text-balance text-sm">Lorem</div>
-                    </div>
-                    <div class="w-full flex-grow"></div>
-                  </div>
-                  <div class="w-full p-2 h-[7vh] flex flex-col">
-                    <div class="w-full h-[100%] flex space-x-2"
-                      h-hover="Wikipedia is a free content online encyclopedia written and maintained by a community of volunteers, known as Wikipedians, through open collaboration and the wiki software MediaWiki. Wikipedia is the largest and most-read reference work in history, and is consistently ranked among the ten most visited websites; as of May 2024 , it was ranked fifth by Semrush, and sixth by">
-                      <div class="aspect-sqaure h-full rounded-full"><img class='h-full rounded-full'
-                          src="https://th.bing.com/th?id=ODLS.9d837793-b21b-4809-aceb-f60f4a0b6408&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
-                          alt="" srcset=""></div>
-                      <div class="flex-grow"> Wikipedia - Wikipedia </div>
-                    </div>
-                    <div class="w-full flex-grow"></div>
-                  </div>
-
-                </div>
-              </div>
-              <div class="human-message h-auto w-[99%] flex p-2">
-                <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">Lorem ipsum, dolor sit amet consectetur
-                  adipisicing elit. Non
-                  sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque fugit rem similique
-                  quaerat dolorem deserunt at veniam velit!</div>
-              </div>
+              
             </div>
           </div>
 
@@ -119,9 +132,24 @@
       </div>
     </div>
   </div>
+  <!-- Here is the intialization script -->
+  <script>
+    var ifsetting = false
+  </script>
 
   <!-- Here is Jquery Style Code -->
   <script>
+    // Here is GUI/Settings congif
+
+    function settings() {
+      $('#setting_main').toggle()
+      $('#setting_rm_click').toggle()
+      load_settings()
+    }
+
+    // function add_api_key
+
+    // Here is the setting configuration code ends
     // here is document Ready Script
     $(document).ready(() => {
       console.log('hello')
@@ -135,18 +163,18 @@
       $('#message_container').append(content)
       $('#send_input').val('')
       // Here is AI response Logic
-      data =  {
-          question: question,
-          AI:'llama-3-70B',
-        }
-      if(chatid !== undefined && chatid !== null && chatid !==''){
+      data = {
+        question: question,
+        AI: 'llama-3-70B',
+      }
+      if (chatid !== undefined && chatid !== null && chatid !== '') {
         data['chat_id'] = chatid;
       }
       // Here is now API endpoint to be added
       $.ajax({
         url: '', // Replace with your URL
         type: 'POST',
-        data:data,
+        data: data,
         success: function (response) {
           $('#response').html('Response: ' + JSON.stringify(response));
         },
@@ -156,6 +184,26 @@
       });
     });
   </script>
+
+  <script>
+    const timestamp = new Date().getTime();
+
+    const scripts = [
+      "js/cookies.js",
+      "js/load_settings.js",
+      "js/api.js",
+      "js/prompts.js",
+      "js/chat/main.js",
+      "js/chat/append_messages.js"
+    ];
+
+    scripts.forEach(script => {
+      const scriptElement = document.createElement('script');
+      scriptElement.src = `${script}?r=${timestamp}`;
+      document.body.appendChild(scriptElement);
+    });
+  </script>
+
 </body>
 
 </html>
