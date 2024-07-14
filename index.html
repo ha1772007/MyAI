@@ -72,7 +72,7 @@
   </div>
   <!-- /Setting main -->
   <div class="w-full h-full flex">
-    <div class="nav-bar w-[7%] bg-dark-400 flex flex-col justify-between">
+    <div class="nav-bar w-[5%] bg-dark-400 flex flex-col justify-between">
       <ul class="w-full  flex-col h-auto p-2 space-y-2">
         <li
           class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
@@ -99,9 +99,9 @@
         </li>
       </ul>
     </div>
-    <div class="main h-full flex-grow bg-dark-300">
+    <div class="main h-full w-[95%] bg-dark-300">
       <div class="flex flex-col w-full h-full p-2">
-        <div class="flex-grow w-full">
+        <div class="h-[90%] flex flex-col w-full">
           <div class="w-full flex h-full">
             <div class="w-[7%] h-full flex justify-center items-center">
               <ul class="w-auto h-auto space-y-10">
@@ -113,20 +113,20 @@
                 </li>
               </ul>
             </div>
-            <div id='message_container' class="flex-grow p-2 space-y-4 flex flex-col items-center text-white">
-              
+            <div id='message_container'
+              class="w-[93%] h-full overflow-y-auto p-2 space-y-4 flex flex-col items-center text-white">
             </div>
           </div>
 
         </div>
-        <div class="h-[10vh] bottom=0 w-full flex justify-center items-center ">
+        <div class="h-[10%] bottom=0 w-full flex justify-center items-center ">
           <div class="w-[90%] h-full flex justify-between space-x-2">
             <textarea id='send_input' style="resize: none;" name="" id=""
               class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
-            <div id='send_button'
+            <button onclick="chain_started()" id='send_button'
               class="h-full p-2 bg-slate-400 rounded-full aspect-square flex justify-center items-center">
               <img src="assests/send.svg" alt="" srcset="">
-            </div>
+          </button>
           </div>
         </div>
       </div>
@@ -155,34 +155,34 @@
       console.log('hello')
     })
     // Here are Logic Function
-    $('#send_button').click(() => {
-      var question = $('#send_input').val();
-      var content = `<div class="human-message h-auto w-[99%] flex p-2">
-                          <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">`+ question + `</div>
-                        </div>`
-      $('#message_container').append(content)
-      $('#send_input').val('')
-      // Here is AI response Logic
-      data = {
-        question: question,
-        AI: 'llama-3-70B',
-      }
-      if (chatid !== undefined && chatid !== null && chatid !== '') {
-        data['chat_id'] = chatid;
-      }
-      // Here is now API endpoint to be added
-      $.ajax({
-        url: '', // Replace with your URL
-        type: 'POST',
-        data: data,
-        success: function (response) {
-          $('#response').html('Response: ' + JSON.stringify(response));
-        },
-        error: function (xhr, status, error) {
-          $('#response').html('Error: ' + error);
-        }
-      });
-    });
+    // $('#send_button').click(() => {
+    //   var question = $('#send_input').val();
+    //   var content = `<div class="human-message h-auto w-[99%] flex p-2">
+    //                       <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">`+ question + `</div>
+    //                     </div>`
+    //   $('#message_container').append(content)
+    //   $('#send_input').val('')
+    //   // Here is AI response Logic
+    //   data = {
+    //     question: question,
+    //     AI: 'llama-3-70B',
+    //   }
+    //   if (chatid !== undefined && chatid !== null && chatid !== '') {
+    //     data['chat_id'] = chatid;
+    //   }
+    //   // Here is now API endpoint to be added
+    //   $.ajax({
+    //     url: '', // Replace with your URL
+    //     type: 'POST',
+    //     data: data,
+    //     success: function (response) {
+    //       $('#response').html('Response: ' + JSON.stringify(response));
+    //     },
+    //     error: function (xhr, status, error) {
+    //       $('#response').html('Error: ' + error);
+    //     }
+    //   });
+    // });
   </script>
 
   <script>

@@ -1,4 +1,5 @@
 function chain_started() {
+    $('#send_buttton').prop('disabled',true)
     let conversation = [];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
@@ -21,7 +22,7 @@ function chain_started() {
     message_context = $('#send_input').val()
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
         append_user(message_context)
-        $('send_input').val('')
+        $('#send_input').val('')
         conversation.push({ 'role': 'user', 'context': message_context })
     } else {
         console.log('Plz provide a valid user message')
