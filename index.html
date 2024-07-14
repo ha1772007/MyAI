@@ -63,6 +63,25 @@
                     src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
                     class="ml-2"> Add API</span></div>
               </div>
+              <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
+                  href='https://aistudio.google.com/app/apikey'>Gemini Models</a></div>
+              <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div onclick="set_default_model('gemini','gemini-1.5-pro')" modelid="gemini-gemini-1-5-pro"
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-pro
+                </div>
+                <div onclick="set_default_model('gemini','gemini-1.5-flash')" modelid="gemini-gemini-1-5-flash"
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-flash
+                </div>
+                <div onclick="set_default_model('gemini','gemini-1.0-pro')" modelid="gemini-gemini-1-0-pro"
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.0-pro
+                </div>
+              </div>
+              <div Apihandle="Gemini" class="models  grid grid-cols-3 space-x-2 ml-2">
+                <div onclick='add_api("gemini")'
+                  class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
+                    src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
+                    class="ml-2"> Add API</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +145,7 @@
             <button onclick="chain_started()" id='send_button'
               class="h-full p-2 bg-slate-400 rounded-full aspect-square flex justify-center items-center">
               <img src="assests/send.svg" alt="" srcset="">
-          </button>
+            </button>
           </div>
         </div>
       </div>
