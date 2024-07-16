@@ -1,11 +1,11 @@
-function append_user(message){
-    let template = `<div class="human-message h-auto w-[99%] flex p-2">
+function append_user(message,full){
+    let template = `<div class="message-content human-message h-auto w-[99%] flex p-2" content='${encodeURIComponent(btoa(full))}'>
     <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">${message}</div>
   </div>`
   $('#message_container').append(template)
 }
-function append_ai(message){
-    let template = `<div class="AI-message h-auto w-[99%] flex p-2">
+function append_ai(message,content){
+    let template = `<div class="message-content AI-message h-auto w-[99%] flex p-2" content="${encodeURIComponent(btoa(content))}">
     <div class="w-[70%] bg-dark-400 rounded-l-md p-2 min-h-[20vh]">${message}</div>
     <div class="w-[30%] bg-dark-400 auto-shrink h-full rounded-r-md p-2 ">
       <div class="w-full p-2 h-[7vh] flex flex-col">
