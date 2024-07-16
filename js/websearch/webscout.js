@@ -6,7 +6,7 @@ function search(query){
             contentType: 'application/json',
             data: {
                 'q':encodeURIComponent(query),
-                'max_results':5,
+                'max_results':10,
                 'safesearch':'moderate',
                 'region':'wt-wt',
                 'backend':'api',
