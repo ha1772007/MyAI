@@ -4,15 +4,15 @@ function chain_started() {
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
             try {
-                let context = $(current).find('.main-content').html();
-                conversation.push({ 'role': 'user', 'context': context });
+                let context = $(current).attr('content');;
+                conversation.push({ 'role': 'user', 'context': atob(decodeURIComponent(context)) });
             } catch (error) {
                 console.log('Error while making conversation lists\n', error.toString());
             }
         }else if(current.classList.contains('AI-message')){
             try {
-                let context = $(current).find('.main-content').html();
-                conversation.push({ 'role': 'ai', 'context': context });
+                let context = $(current).attr('content')
+                conversation.push({ 'role': 'ai', 'context': atob(decodeURIComponent(context)) });
             } catch (error) {
                 console.log('Error while making conversation lists\n', error.toString());
             }
@@ -21,15 +21,20 @@ function chain_started() {
     });
     message_context = $('#send_input').val()
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
-        append_user(message_context)
+        append_user(message_context,message_context)
         $('#send_input').val('')
-        conversation.push({ 'role': 'user', 'context': message_context })
+        search_data = search(message_context).then((response)=>{
+            final_content = `Here is Websearch Data:\n${response}\nHere is user Question:\n${message_context}`
+            conversation.push({ 'role': 'user', 'context': final_content});
+            create_conversation(conversation);
+        })
     } else {
         console.log('Plz provide a valid user message')
     }
     console.log(conversation)
-    create_conversation(conversation)
+    
 }
+
 function create_conversation(chain) {
     try {
         if ($.parseJSON(getCookie('default')) && $.parseJSON(getCookie('default')).model.provider == $.parseJSON(getCookie('default')).api.provider) {
@@ -47,7 +52,7 @@ function create_conversation(chain) {
                     }
                     console.log({ message: response, type: 'Success' });
                     try{
-                        append_ai(response.content)
+                        append_ai(response.content,response.DirectResult)
                     }catch(error){
                         console.log(error.toString())
                     }
