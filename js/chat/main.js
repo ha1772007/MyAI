@@ -23,11 +23,9 @@ function chain_started() {
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
         append_user(message_context,message_context)
         $('#send_input').val('')
-        search_data = search(message_context).then((response)=>{
-            final_content = `Here is Websearch Data:\n${response}\nHere is user Question:\n${message_context}`
-            conversation.push({ 'role': 'user', 'context': final_content});
-            create_conversation(conversation);
-        })
+        final_content = message_context
+        conversation.push({ 'role': 'user', 'context': final_content});
+        create_conversation(conversation);
     } else {
         console.log('Plz provide a valid user message')
     }
