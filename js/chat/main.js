@@ -1,5 +1,5 @@
 function chain_started() {
-    $('#send_buttton').prop('disabled',true)
+    $('#send_buttton').prop('disabled', true)
     let conversation = [];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
@@ -9,7 +9,7 @@ function chain_started() {
             } catch (error) {
                 console.log('Error while making conversation lists\n', error.toString());
             }
-        }else if(current.classList.contains('AI-message')){
+        } else if (current.classList.contains('AI-message')) {
             try {
                 let context = $(current).attr('content')
                 conversation.push({ 'role': 'ai', 'context': atob(decodeURIComponent(context)) });
@@ -21,37 +21,39 @@ function chain_started() {
     });
     message_context = $('#send_input').val()
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
-        append_user(message_context,message_context)
+        append_user(message_context, message_context)
         $('#send_input').val('')
-        final_content = message_context
-        conversation.push({ 'role': 'user', 'context': final_content});
-        create_conversation(conversation);
+        search(message_context).then(search_final_result => {
+            final_content = `${search_final_result}Here is user Query:${message_context}`
+            conversation.push({ 'role': 'user', 'context': final_content });
+            create_conversation(conversation);
+        })
     } else {
         console.log('Plz provide a valid user message')
     }
     console.log(conversation)
-    
+
 }
 
 function create_conversation(chain) {
     try {
         if ($.parseJSON(getCookie('default')) && $.parseJSON(getCookie('default')).model.provider == $.parseJSON(getCookie('default')).api.provider) {
-            jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).model.provider,model: $.parseJSON(getCookie('default')).model.model, api: $.parseJSON(getCookie('default')).api.key }
+            jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).model.provider, model: $.parseJSON(getCookie('default')).model.model, api: $.parseJSON(getCookie('default')).api.key }
             $.ajax({
                 url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(jsonData),
                 success: function (response) {
-                    try{
+                    try {
                         response = $.parseJSON(response)
-                    }catch(error){
+                    } catch (error) {
                         console.log(error.toString())
                     }
                     console.log({ message: response, type: 'Success' });
-                    try{
-                        append_ai(response.content,response.DirectResult)
-                    }catch(error){
+                    try {
+                        append_ai(response.content, response.DirectResult)
+                    } catch (error) {
                         console.log(error.toString())
                     }
                 },

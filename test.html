@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-100': '#505050',
+                        'dark-200': '#404040',
+                        'dark-300': '#303030',
+                        'dark-300': '#202020',
+                        'dark-400': '#101010',
+                        'light-100': '#FDFEFE',
+                        'light-200': '#FBFCFC',
+                        'light-300': '#BFC9CA',
+                        'light-400': '#FDFEFE'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="w-screen h-screen">
+    <!--Ssetting Toggle -->
+    <div onclick="settings()" id='setting_rm_click' class="absolute w-screen h-screen z-10 opacity-5 bg-black hidden">
+    </div>
+    <!-- /Setting Toggle -->
+    <!-- Settings Main -->
+    <div id='setting_main' class="hidden absolute w-[75vw] h-[75vh] mx-[12.5vw] my-[12.5vh] z-20">
+        <div class="w-full h-full border-dark-400 border-2 text-white bg-dark-200 p-1 rounded-lg">
+            <div class="flex w-full h-full">
+                <div class='w-1/5 bg-dark-300 border-dark-100 border-2'>
+                    <ul class="w-full p-2">
+                        <li
+                            class='border-blue-500 border-2 w-full p-2 rounded-md text-md bg-dark-400 hover:bg-dark-200 cursor-pointer'>
+                            Text Generation model
+                        </li>
+                    </ul>
+                </div>
+                <div id='settings_main' class="flex-grow h-full">
+                    <div class='w-full h-full overflow-auto'>
+                        <div class="w-full p-4 space-y-4">
+                            <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
+                                    href='https://console.groq.com/keys'>Groq Models</a></div>
+                            <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                                <div onclick="set_default_model('groq','llama3-70b-8192')"
+                                    modelid="groq-llama3-70b-8192"
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+                                    llama-3-70B
+                                </div>
+                                <div onclick="set_default_model('groq','llama3-8b-8192')" modelid="groq-llama3-8b-8192"
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+                                    llama-3-8B
+                                </div>
+                            </div>
+                            <div Apihandle="Groq" class="models  grid grid-cols-3 space-x-2 ml-2">
+                                <div onclick='add_api("groq")' k
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex">
+                                    <img src="assests/plus-circle.svg" style="filter: invert(1);"
+                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span></div>
+                            </div>
+                            <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
+                                    href='https://aistudio.google.com/app/apikey'>Gemini Models</a></div>
+                            <div class="models  grid grid-cols-3 space-x-2 ml-2">
+                                <div onclick="set_default_model('gemini','gemini-1.5-pro')"
+                                    modelid="gemini-gemini-1-5-pro"
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+                                    gemini-1.5-pro
+                                </div>
+                                <div onclick="set_default_model('gemini','gemini-1.5-flash')"
+                                    modelid="gemini-gemini-1-5-flash"
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+                                    gemini-1.5-flash
+                                </div>
+                                <div onclick="set_default_model('gemini','gemini-1.0-pro')"
+                                    modelid="gemini-gemini-1-0-pro"
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+                                    gemini-1.0-pro
+                                </div>
+                            </div>
+                            <div Apihandle="Gemini" class="models  grid grid-cols-3 space-x-2 ml-2">
+                                <div onclick='add_api("gemini")'
+                                    class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex">
+                                    <img src="assests/plus-circle.svg" style="filter: invert(1);"
+                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Setting main -->
+    <div class="w-full h-full flex">
+        <div class="av-bar w-[20%] md:w-[10%] lg:w-[7%] xl:w-[5%] bg-dark-400 flex flex-col justify-between">
+            <ul class="w-full  flex-col h-auto p-2 space-y-2">
+                <li
+                    class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+                    <img src="assests/home.svg" style="filter: invert(1);" alt="" srcset="">
+                </li>
+                <li
+                    class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+                    <img src="assests/code.svg" style="filter: invert(1);" alt="" srcset="">
+                </li>
+                <li
+                    class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+                    <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset="">
+                </li>
+                <li onclick="settings()"
+                    class="cursor-pointer w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+                    <img src="assests/settings.svg" style="filter: invert(1);" alt="" srcset="">
+                </li>
+
+            </ul>
+            <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
+                <li
+                    class="w-full rounded-lg text-light-400 bottom-0 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+                    <img src="assests/arrow-left.svg" style="filter: invert(1);" alt="" srcset="">
+                </li>
+            </ul>
+        </div>
+        <div class="main h-full w-[95%] bg-dark-300">
+            <div class="flex flex-col w-full h-full p-2">
+                <div class="h-[90%] flex flex-col w-full">
+                    <div class="w-full flex h-full">
+                        <div class="w-[7%] h-full flex justify-center items-center">
+                            <ul class="w-auto h-auto space-y-10">
+                                <li
+                                    class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-400">
+                                    <img src="assests/arrow-up.svg" alt="" srcset="">
+                                </li>
+                                <li
+                                    class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-400">
+                                    <img src="assests/arrow-down.svg" alt="" srcset="">
+                                </li>
+                            </ul>
+                        </div>
+                        <div id='message_container'
+                            class="w-[93%] h-full overflow-y-auto p-2 space-y-4 flex flex-col items-center text-white">
+                            <div class="AI-message h-auto w-[99%] flex p-2">
+                                <div class="w-[100%] bg-dark-400 rounded-l-md p-2 min-h-[20vh]">Lorem ipsum, dolor sit
+                                    amet consectetur adipisicing
+                                    elit. Non
+                                    sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque
+                                    fugit rem similique
+                                    quaerat dolorem deserunt at veniam velit!</div>
+                                
+                            </div>
+                            <div class="human-message h-auto w-[99%] flex p-2">
+                                <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">Lorem ipsum, dolor sit amet
+                                    consectetur adipisicing elit. Non
+                                    sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque
+                                    fugit rem similique
+                                    quaerat dolorem deserunt at veniam velit!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="h-[10%] bottom=0 w-full flex justify-center items-center ">
+                    <div class="w-[90%] h-full flex justify-between space-x-2">
+                        <textarea id='send_input' style="resize: none;" name="" id=""
+                            class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
+                        <button onclick="chain_started()" id='send_button'
+                            class="h-full p-2 bg-slate-400 rounded-full aspect-square flex justify-center items-center">
+                            <img src="assests/send.svg" alt="" srcset="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Here is the intialization script -->
+    <script>
+        var ifsetting = false
+    </script>
+
+    <!-- Here is Jquery Style Code -->
+    <script>
+        // Here is GUI/Settings congif
+
+        function settings() {
+            $('#setting_main').toggle()
+            $('#setting_rm_click').toggle()
+            load_settings()
+        }
+
+        // function add_api_key
+
+        // Here is the setting configuration code ends
+        // here is document Ready Script
+        $(document).ready(() => {
+            console.log('hello')
+        })
+        // Here are Logic Function
+        // $('#send_button').click(() => {
+        //   var question = $('#send_input').val();
+        //   var content = `<div class="human-message h-auto w-[99%] flex p-2">
+        //                       <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">`+ question + `</div>
+        //                     </div>`
+        //   $('#message_container').append(content)
+        //   $('#send_input').val('')
+        //   // Here is AI response Logic
+        //   data = {
+        //     question: question,
+        //     AI: 'llama-3-70B',
+        //   }
+        //   if (chatid !== undefined && chatid !== null && chatid !== '') {
+        //     data['chat_id'] = chatid;
+        //   }
+        //   // Here is now API endpoint to be added
+        //   $.ajax({
+        //     url: '', // Replace with your URL
+        //     type: 'POST',
+        //     data: data,
+        //     success: function (response) {
+        //       $('#response').html('Response: ' + JSON.stringify(response));
+        //     },
+        //     error: function (xhr, status, error) {
+        //       $('#response').html('Error: ' + error);
+        //     }
+        //   });
+        // });
+    </script>
+
+    <script>
+        const timestamp = new Date().getTime();
+
+        const scripts = [
+            "js/cookies.js",
+            "js/load_settings.js",
+            "js/api.js",
+            "js/prompts.js",
+            "js/chat/main.js",
+            "js/chat/append_messages.js",
+            "js/websearch/webscout.js",
+        ];
+
+        scripts.forEach(script => {
+            const scriptElement = document.createElement('script');
+            scriptElement.src = `${script}?r=${timestamp}`;
+            document.body.appendChild(scriptElement);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"
+        integrity="sha512-PEsccDx9jqX6Dh4wZDCnWMaIO3gAaU0j46W//sSqQhUQxky6/eHZyeB3NrXD2xsyugAKd4KPiDANkcuoEa2JuA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+
+</html>
