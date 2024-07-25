@@ -128,7 +128,7 @@
           <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
         <li onclick="settings()"
-          class="cursor-pointer w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="cursor-pointer w-full `1qrounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
           <img src="assests/settings.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
 
@@ -187,43 +187,30 @@
       $('#setting_rm_click').toggle()
       load_settings()
     }
+    // Here is ctrl_Enter for message sending
+    // script.js
+$(document).ready(function() {
+    $('#myTextarea').on('keydown', function(event) {
+        if (event.ctrlKey && event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default action (newline in textarea)
+            callMyFunction();
+        }
+    });
 
-    // function add_api_key
-
-    // Here is the setting configuration code ends
-    // here is document Ready Script
-    $(document).ready(() => {
-      console.log('hello')
-    })
-    // Here are Logic Function
-    // $('#send_button').click(() => {
-    //   var question = $('#send_input').val();
-    //   var content = `<div class="human-message h-auto w-[99%] flex p-2">
-    //                       <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">`+ question + `</div>
-    //                     </div>`
-    //   $('#message_container').append(content)
-    //   $('#send_input').val('')
-    //   // Here is AI response Logic
-    //   data = {
-    //     question: question,
-    //     AI: 'llama-3-70B',
-    //   }
-    //   if (chatid !== undefined && chatid !== null && chatid !== '') {
-    //     data['chat_id'] = chatid;
-    //   }
-    //   // Here is now API endpoint to be added
-    //   $.ajax({
-    //     url: '', // Replace with your URL
-    //     type: 'POST',
-    //     data: data,
-    //     success: function (response) {
-    //       $('#response').html('Response: ' + JSON.stringify(response));
-    //     },
-    //     error: function (xhr, status, error) {
-    //       $('#response').html('Error: ' + error);
-    //     }
-    //   });
-    // });
+    function callMyFunction() {
+        console.log('Ctrl + Enter was pressed!');
+        // Add your function logic here
+    }
+});// script.js
+  $(document).ready(function() {
+      $('#send_input').on('keydown', function(event) {
+          if (event.ctrlKey && event.key === 'Enter') {
+              event.preventDefault(); // Prevent the default action (newline in textarea)
+              chain_started();
+          }
+      });
+  });
+  
   </script>
 
   <script>
@@ -247,10 +234,6 @@
       document.body.appendChild(scriptElement);
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/he/1.2.0/he.min.js"
-    integrity="sha512-PEsccDx9jqX6Dh4wZDCnWMaIO3gAaU0j46W//sSqQhUQxky6/eHZyeB3NrXD2xsyugAKd4KPiDANkcuoEa2JuA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </body>
 
 </html>
