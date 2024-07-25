@@ -1,0 +1,19 @@
+{
+    "Chat Models":{
+        "Groq":{
+            "provider_id":"groq",
+            "api_url":"https://console.groq.com/keys",
+            "models":["llama3-70b-8192","llama3-8b-8192"]
+        },
+        "Gemini":{
+            "provider_id":"gemini",
+            "api_url":"https://aistudio.google.com/app/apikey",
+            "models":["gemini-1.5-pro","gemini-1.5-flash","gemini-1.0-pro"]
+        },
+        "Cohere":{
+            "provider_id":"cohere",
+            "api_url":"https://dashboard.cohere.com/api-keys",
+            "models":["command-r-plus","command-r","command","command-nightly","command-light","command-light-nightly"]
+        }
+    }
+}

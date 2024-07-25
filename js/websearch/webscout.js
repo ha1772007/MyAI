@@ -1,5 +1,5 @@
 function search(query){
-    return new Promise((resolve,reject) =>{
+    return new Promise((resolve) =>{
         $.ajax({
             url: 'https://mangoman7002-webapi.hf.space/', // Replace with your endpoint URL
             type: 'GET',
@@ -16,12 +16,15 @@ function search(query){
                 });
                 resolve('Here is search result:'+toreturn+'\n')
             }catch(error){
+                create_info("Search Failed: Invalid Output","danger")
                 console.log(error)
                 resolve("");
                 }
             },
             error: function (xhr, status, error) {
-                reject('xhr response\n' + xhr + '\n' + 'status response\n' + status + '\n' + 'error\n' + error + '\n')
+                create_info("Search Failed: Endpoint Error","danger");
+                resolve("")
+                // reject('xhr response\n' + xhr + '\n' + 'status response\n' + status + '\n' + 'error\n' + error + '\n')
                 console.log({ message: error, type: 'Error' })
             }
         });

@@ -1,114 +1,89 @@
+const { getCookies } = require("undici-types");
+
 function load_settings() {
   // intialization of cookies
-  if ($.parseJSON(getCookie('default')) == undefined || $.parseJSON(getCookie('default')).api == undefined || $.parseJSON(getCookie('default')).model == undefined) {
-    setCookie('default', { 'model': { 'provider': null, 'model': null }, 'api': { 'provider': null, 'api': null } })
+  if ($.parseJSON(getCookie('default')) == undefined) {
+    setCookie('default', { 'model': null, 'api': null, 'provider': null })
   }
   // Reset all changes
-  main_settings = `<div class='w-full h-full overflow-auto'>
-  <div class="w-full p-4 space-y-4">
-    <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
-        href='https://console.groq.com/keys'>Groq Models</a></div>
-    <div class="models  grid grid-cols-3 space-x-2 ml-2">
-      <div onclick="set_default_model('groq','llama3-70b-8192')" modelid="groq-llama3-70b-8192"
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-70B
-      </div>
-      <div onclick="set_default_model('groq','llama3-8b-8192')" modelid="groq-llama3-8b-8192"
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-8B
-      </div>
-    </div>
-    <div Apihandle="Groq" class="models  grid grid-cols-3 space-x-2 ml-2">
-      <div onclick='add_api("groq")' k
+  $('#setting_toappend').html('');
+  $('#type_bar').html('');
+  // Making the setting
+  let toappend = ""
+  let typebar = ""
+  fetch('models/models.json?r=1').then(response => response.json()).then(models => {
+    // Setting Up HTML
+    console.log(models)
+    for (let type in models) {
+      typebar += `<li class='border-blue-500 border-2 w-full p-2 rounded-md text-md bg-dark-400 hover:bg-dark-200 cursor-pointer'>
+              ${type}
+            </li>`
+      for (let provider in models[type]) {
+        toappend += `<div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
+          href='${provider['api_url']}'>${provider}</a></div>`
+        toappend += `<div class="models space-y-2 grid grid-cols-3 space-x-2 ml-2">`
+        console.log(models[type][provider])
+        models[type][provider]['models'].forEach(model => {
+          toappend += `<div onclick="set_default_model('${models[type][provider]['provider_id']}','${model}')" modelid="${models[type][provider]['provider_id']}-${model}"
+            class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">
+            ${model}
+          </div>`
+        })
+        toappend += `</div>`;
+        toappend += `<div class="models grid grid-cols-3 ml-2">`;
+        toappend += `<div onclick='add_api("${models[type][provider]['provider_id']}")'
         class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
           src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
-          class="ml-2"> Add API</span></div>
-    </div>
-    <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
-        href='https://aistudio.google.com/app/apikey'>Gemini Models</a></div>
-    <div class="models  grid grid-cols-3 space-x-2 ml-2">
-      <div onclick="set_default_model('gemini','gemini-1.5-pro')" modelid="gemini-gemini-1-5-pro"
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-pro
-      </div>
-      <div onclick="set_default_model('gemini','gemini-1.5-flash')" modelid="gemini-gemini-1-5-flash"
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-flash
-      </div>
-      <div onclick="set_default_model('gemini','gemini-1.0-pro')" modelid="gemini-gemini-1-0-pro"
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.0-pro
-      </div>
-    </div>
-    <div Apihandle="Gemini" class="models  grid grid-cols-3 space-x-2 ml-2">
-      <div onclick='add_api("gemini")'
-        class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
-          src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
-          class="ml-2"> Add API</span></div>
-    </div>
-  </div>
-</div>`
-  $('#settings_main').html(main_settings);
-  // Part 1 hangle Groq APIs
-  try {
-    var groqData = $.parseJSON(getCookie('groq'));
-    if (groqData && groqData.api && Array.isArray(groqData.api)) {
-      for (var g_i = 0; g_i < groqData.api.length; g_i++) {
-        var g_api = groqData.api[g_i];
-        console.log(g_api);
-        if ($('[Apihandle="Groq"]').length == 1) {
-          var Groq_API_append = `<div api="` + g_api + `" onclick="set_default_api('groq', '${g_api}')" class="cursor-pointer rounded-md border-2 p-2 hover:border-red-600 border-blue-600 flex"><span class="ml-2">${g_api.substring(0, 2)}..${g_api.substring(g_api.length - 2, g_api.length)}</span></div>`;
-          $('[Apihandle="Groq"]').append(Groq_API_append);
+          class="ml-2"> Add API</span></div>`
+        try{
+        thisapi = $.parseJSON(getCookie(models[type][provider]['provider_id'])).api
+        console.log(thisapi)
+        console.log(`Starting for  ${thisapi} provider`)
+        if (thisapi !== undefined | thisapi !== null) {
+          thisapi.forEach(oneapi => {
+            toappend += `<div onclick='set_default_api("${models[type][provider]['provider_id']}","${oneapi}")'
+            apiid="${models[type][provider]['provider_id']}-${thisapi}" class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600 flex"><span
+                class="ml-2">${oneapi.substr(0, 2)}...${oneapi.substr(-2, 2)}</span></div>`
+          })
         } else {
-          alert('Error while handling groq API');
+          console.log(`No ${provider} API Found in Cookies`)
         }
+        
+      }catch(error){
+        console.log(error)
       }
-    } else {
-      console.log('Invalid groq data structure');
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-  // Gemini API handler
-  try {
-    var geminiData = $.parseJSON(getCookie('gemini'));
-    if (geminiData && geminiData.api && Array.isArray(geminiData.api)) {
-      for (var g_i = 0; g_i < geminiData.api.length; g_i++) {
-        var g_api = geminiData.api[g_i];
-        console.log(g_api);
-        if ($('[Apihandle="Groq"]').length == 1) {
-          var gemini_API_append = `<div api="` + g_api + `" onclick="set_default_api('gemini', '${g_api}')" class="cursor-pointer rounded-md border-2 p-2 hover:border-red-600 border-blue-600 flex"><span class="ml-2">${g_api.substring(0, 2)}..${g_api.substring(g_api.length - 2, g_api.length)}</span></div>`;
-          $('[Apihandle="Gemini"]').append(gemini_API_append);
-        } else {
-          alert('Error while handling gemini API');
-        }
+      toappend += `</div>`
       }
-    } else {
-      console.log('Invalid gemini data structure');
     }
-  } catch (error) {
-    console.log(error.message);
-  }
-  // set Default Border Colour
-    $('[modelid=' + $.parseJSON(getCookie('default')).model.provider.replace('.','-') + '-' + $.parseJSON(getCookie('default')).model.model.replace('.','-')  + ']').removeClass('border-blue-600');
-    $('[modelid=' + $.parseJSON(getCookie('default')).model.provider.replace('.','-')  + '-' + $.parseJSON(getCookie('default')).model.model.replace('.','-')  + ']').addClass('border-green-600');
+    console.log(toappend);
+    console.log(typebar)
+    $('#setting_toappend').html(toappend);
+    $('#type_bar').html(typebar);
+    // TO Change Colour of Ddefaults
+    //@ 1. TO change Colour of Default Chat Models
+    modelid = `${$.parseJSON(getCookie('default')).provider}-${$.parseJSON(getCookie('default')).model}`;
+    $('[modelid="' + modelid + '"]').removeClass('hover:border-green-600 border-blue-600');
+    $('[modelid="' + modelid + '"]').addClass('border-green-600 hover:border-blue-600');
+    // @2. To Change Colour of Default API
+    apiid = `${$.parseJSON(getCookie('default')).provider}-${$.parseJSON(getCookie('default')).api}`;
+    $('[apiid="'+apiid+'"]').removeClass('hover:border-green-600 border-blue-600');
+    $('[apiid="'+apiid+'"]').addClass('border-green-600 hover:border-blue-600');
+  });
 
-  try {
-    d_api = $.parseJSON(getCookie('default')).api.key
-    $('[api="' + d_api + '"]').removeClass('border-blue-600')
-    $('[api="' + d_api + '"]').addClass('border-green-600')
-  } catch (error) {
-    console.log(error.message)
-  }
+
 }
-
 function set_default_api(provider, api) {
   var previous = $.parseJSON(getCookie('default'))
-  previous.api.provider = provider;
-  previous.api.key = api;
+  previous.api = api;
+  previous.provider = provider;
   setCookie('default', previous)
   load_settings()
 }
 function set_default_model(provider, model) {
   console.log('Set default model called')
   var previous = $.parseJSON(getCookie('default'))
-  previous.model.provider = provider;
-  previous.model.model = model;
+  previous.provider = provider;
+  previous.model = model;
   setCookie('default', previous)
   load_settings()
 }
