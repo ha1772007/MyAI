@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com/3.4.4"></script>
     <script>
@@ -28,6 +31,17 @@
 </head>
 
 <body class="w-screen h-screen">
+    <!-- Info Box -->
+    <div
+        class='text-white p-2 spcae-y-2  h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute max-h-full overflow-y-auto z-50'>
+        <div class="bg-dark-300 bg-opacity-80 mt-[2vh] w-[100%] border-2 border-green-500 p-2 rounded-md">
+            <div class='w-full h-1 bg-blue-600'></div>
+            <div class="w-full h-auto">
+                Here is message info
+            </div>
+        </div>
+    </div>
+    <!-- /Info Box -->
     <!--Ssetting Toggle -->
     <div onclick="settings()" id='setting_rm_click' class="absolute w-screen h-screen z-10 opacity-5 bg-black hidden">
     </div>
@@ -64,7 +78,8 @@
                                 <div onclick='add_api("groq")' k
                                     class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex">
                                     <img src="assests/plus-circle.svg" style="filter: invert(1);"
-                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span></div>
+                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span>
+                                </div>
                             </div>
                             <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
                                     href='https://aistudio.google.com/app/apikey'>Gemini Models</a></div>
@@ -89,7 +104,8 @@
                                 <div onclick='add_api("gemini")'
                                     class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex">
                                     <img src="assests/plus-circle.svg" style="filter: invert(1);"
-                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span></div>
+                                        class="h-full aspect-square" alt=""><span class="ml-2"> Add API</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,7 +168,7 @@
                                     sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque
                                     fugit rem similique
                                     quaerat dolorem deserunt at veniam velit!</div>
-                                
+
                             </div>
                             <div class="human-message h-auto w-[99%] flex p-2">
                                 <div class="w-[90%] bg-dark-200 ml-[10%] p-2 rounded-md">Lorem ipsum, dolor sit amet
@@ -160,6 +176,29 @@
                                     sint sit, repellendus magni et tempore corporis omnis minus voluptatum ut? Neque
                                     fugit rem similique
                                     quaerat dolorem deserunt at veniam velit!</div>
+                            </div>
+                            <div class="h-auto w-[99%] flex p-2">
+                                <div
+                                    class="flex max-w-[100%] justify-between items-center space-x-2 bg-dark-400 rounded-md p-2">
+                                    <span>Here is the content</span>
+                                    <img style='filter:invert(1)' src="loader/1484.gif" alt="" srcset="">
+                                </div>
+                            </div>
+                            <div class=" h-auto w-[99%] flex p-2">
+                                <div
+                                    class="border-2 border-red-600 flex-col flex w-[50%] justify-between items-center space-x-2 bg-dark-400 rounded-md p-2">
+                                    <div class="w-full flex justify-between items-center">
+                                        <span class="text-red-600 text-2xl">Error :- Type</span>
+                                        <span onclick="function_here_to_be_executed()">
+                                            <span class="text-4xl material-symbols-outlined cursor-pointer">
+                                                frame_reload
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis doloribus
+                                        totam nulla qui optio autem fuga dolor soluta quas, maiores, facere mollitia
+                                        distinctio unde sit maxime ratione. Suscipit, corrupti odit?</span>
+                                </div>
                             </div>
                         </div>
                     </div>
