@@ -107,6 +107,8 @@ function create_conversation(chain) {
                 }
             });
         } else {
+            create_error('Cookies','Setup Default Model and API from left setting ICON problem still remains same then Clear Cookies')
+            create_info('Setup Default Model and API from left setting ICON problem still remains same then Clear Cookies')
             console.log({ message: 'default setting is not as expected', type: 'Error' })
         }
     } catch (error) {

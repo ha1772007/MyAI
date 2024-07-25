@@ -11,7 +11,7 @@ function load_settings() {
   // Making the setting
   let toappend = ""
   let typebar = ""
-  fetch('models/models.json?r=1').then(response => response.json()).then(models => {
+  fetch('models/models.json?r=2').then(response => response.json()).then(models => {
     // Setting Up HTML
     console.log(models)
     for (let type in models) {
