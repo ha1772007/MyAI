@@ -79,7 +79,7 @@ function create_conversation(chain) {
         if ($.parseJSON(getCookie('default')) && $.parseJSON(getCookie('default')).model.provider == $.parseJSON(getCookie('default')).api.provider) {
             jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).provider, model: $.parseJSON(getCookie('default')).model, api: $.parseJSON(getCookie('default')).api ,other:$.parseJSON(getCookie('other'))}
             $.ajax({
-                url: 'https://1777-01j14pts1jfj34jb8eh09cbgg1.cloudspaces.litng.ai', // Replace with your endpoint URL
+                url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(jsonData),
