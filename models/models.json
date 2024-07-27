@@ -1,24 +1,58 @@
 {
-    "Chat Models":{
-        "Groq":{
-            "provider_id":"groq",
-            "api_url":"https://console.groq.com/keys",
-            "models":["llama3-70b-8192","llama3-8b-8192"]
+    "Chat Models": {
+        "Groq": {
+            "provider_id": "groq",
+            "api_url": "https://console.groq.com/keys",
+            "models": [
+                "llama-3.1-8b-instant",
+                "llama-3.1-70b-versatile",
+                "llama3-groq-70b-8192-tool-use-preview",
+                "llama3-groq-8b-8192-tool-use-preview",
+                "llama-3.1-405b-reasoning",
+                "llama3-70b-8192",
+                "llama3-8b-8192",
+                "mixtral-8x7b-32768",
+                "gemma-7b-it",
+                "gemma2-9b-it"
+            ]
         },
-        "Lepton AI":{
-            "provider_id":"lepton",
-            "api_url":"lepton URL",
-            "models":["llama3-1-405b","llama3-1-70b","llama3-1-8b","nous-hermes-llama2-13b","openchat-3-5","wizardlm-2-7b","mistral-7b","toppy-m-7b","gemma-7b","mixtral-8x7b","llama2-13b"]
+        "Lepton AI": {
+            "provider_id": "lepton",
+            "api_url": "lepton URL",
+            "models": [
+                "llama3-1-405b",
+                "llama3-1-70b",
+                "llama3-1-8b",
+                "nous-hermes-llama2-13b",
+                "openchat-3-5",
+                "wizardlm-2-7b",
+                "mistral-7b",
+                "toppy-m-7b",
+                "gemma-7b",
+                "mixtral-8x7b",
+                "llama2-13b"
+            ]
         },
-        "Gemini":{
-            "provider_id":"gemini",
-            "api_url":"https://aistudio.google.com/app/apikey",
-            "models":["gemini-1.5-pro","gemini-1.5-flash","gemini-1.0-pro"]
+        "Gemini": {
+            "provider_id": "gemini",
+            "api_url": "https://aistudio.google.com/app/apikey",
+            "models": [
+                "gemini-1.5-pro",
+                "gemini-1.5-flash",
+                "gemini-1.0-pro"
+            ]
         },
-        "Cohere":{
-            "provider_id":"cohere",
-            "api_url":"https://dashboard.cohere.com/api-keys",
-            "models":["command-r-plus","command-r","command","command-nightly","command-light","command-light-nightly"]
+        "Cohere": {
+            "provider_id": "cohere",
+            "api_url": "https://dashboard.cohere.com/api-keys",
+            "models": [
+                "command-r-plus",
+                "command-r",
+                "command",
+                "command-nightly",
+                "command-light",
+                "command-light-nightly"
+            ]
         }
     }
 }
