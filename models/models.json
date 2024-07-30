@@ -18,7 +18,7 @@
         },
         "Lepton AI": {
             "provider_id": "lepton",
-            "api_url": "lepton URL",
+            "api_url": "https://dashboard.lepton.ai/workspace/f94thrqx/settings/api-tokens",
             "models": [
                 "llama3-1-405b",
                 "llama3-1-70b",
