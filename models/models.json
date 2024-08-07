@@ -39,6 +39,7 @@
             "provider_id": "gemini",
             "api_url": "https://aistudio.google.com/app/apikey",
             "models": [
+                "gemini-1.5-pro-exp-0801",
                 "gemini-1.5-pro",
                 "gemini-1.5-flash",
                 "gemini-1.0-pro"
@@ -60,7 +61,7 @@
         },
         "OpenRouter": {
             "provider_id": "openrouter",
-            "api_url": "https://dashboard.cohere.com/api-keys",
+            "api_url": "https://openrouter.ai/settings/keys",
             "models": [
                 "mistralai/mistral-7b-instruct:free",
                 "meta-llama/llama-3.1-8b-instruct:free",
@@ -79,8 +80,8 @@
             "default_api":[]
         },
         "Workers AI": {
-            "provider_id": "workers",
-            "api_url": "https://dashboard.cohere.com/api-keys",
+            "provider_id": "cloudflare",
+            "api_url": "https://dash.cloudflare.com/YOUR_ACCOUNT_ID/ai/workers-ai/api-quick-start",
             "models": [
                 "@cf/llava-hf/llava-1.5-7b-hf",
                 "@cf/unum/uform-gen2-qwen-500m",
@@ -123,7 +124,7 @@
         },
         "Segmind": {
             "provider_id": "segmind",
-            "api_url": "https://dashboard.cohere.com/api-keys",
+            "api_url": "https://cloud.segmind.com/console/api-keys",
             "models": ["gpt-4o"],
             "default_api":[]
         }
