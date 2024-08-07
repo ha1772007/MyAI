@@ -142,12 +142,14 @@ function load_settings() {
   // Call chat_models_list
   chat_models_list().then(resolve => {
 
-    set_model_list()
+    set_model_list().then(resolved =>{
+      set_api_list()
+    })
   }
 
   )
   // set  Default of API and load api list
-  set_api_list()
+  
   // Check and Set Default model Provider
 
   // IN end some importants
