@@ -4,24 +4,28 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- <script>
+    let chatPar = new URLSearchParams(window.location.search)
+    let chatid = chatPar.get(chatid);
+    if(chatid == undefined){
+      chatid = generatechatid();
+    }
+  </script> -->
   <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'dark-100': '#505050',
-            'dark-200': '#404040',
-            'dark-300': '#303030',
-            'dark-300': '#202020',
-            'dark-400': '#101010',
-            'light-100': '#FDFEFE',
-            'light-200': '#FBFCFC',
-            'light-300': '#BFC9CA',
-            'light-400': '#FDFEFE'
+            'dark-1': '#2a2929',
+            'dark-2': '#121212',
+            'light-1': '#F8F8F7',
+            'light-2': '#F5F5F0',
           }
         }
       }
@@ -41,13 +45,12 @@
         /* Final width */
       }
     }
-
   </style>
 </head>
 
 <body class="w-screen h-screen">
   <div id="infobox"
-    class='text-white p-2 spcae-y-2  h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute max-h-full overflow-y-auto z-50'>
+    class='text-white p-2 spcae-y-2  max-h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute overflow-y-auto z-50'>
 
   </div>
   <!--Ssetting Toggle -->
@@ -55,101 +58,165 @@
   </div>
   <!-- /Setting Toggle -->
   <!-- Settings Main -->
-  <div id='setting_main' class="hidden absolute w-[75vw] h-[75vh] mx-[12.5vw] my-[12.5vh] z-20">
-    <div class="w-full h-full border-dark-400 border-2 text-white bg-dark-200 p-1 rounded-lg">
-      <div class="flex w-full h-full">
-        <div class='w-1/5 bg-dark-300 border-dark-100 border-2'>
-          <ul id="type_bar" class="w-full p-2">
-            <li
-              class='border-blue-500 border-2 w-full p-2 rounded-md text-md bg-dark-400 hover:bg-dark-200 cursor-pointer'>
-              Text Generation model
-            </li>
-          </ul>
+  <div id="setting_main" class="hidden absolute w-full h-full z-20 bg-dark-2 text-light-1">
+    <div class="h-[5%] bg-dark-1 flex justify-end items-center">
+      <img class="mx-2 cursor-pointer" onclick="settings()" src="assests/x.svg" alt="close" srcset="assests/x.svg">
+    </div>
+    <div class="w-full h-[95%] flex p-2 space-x-2">
+      <div class="w-[20%] h-full flex flex-col space-y-2 p-2 ">
+        <div onclick="hide_show('models',['models','apperance','preferences','other'])"
+          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Models</div>
+        <div onclick="hide_show('apperance',['models','apperance','preferences','other'])"
+          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Apperance
         </div>
-        <div id='settings_main' class="flex-grow h-full">
-          <div class='w-full h-full overflow-auto'>
-            <div id="setting_toappend" class="w-full p-4 space-y-4">
-              <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
-                  href='https://console.groq.com/keys'>Groq Models</a></div>
-              <div class="models  grid grid-cols-3 space-x-2 ml-2">
-                <div onclick="set_default_model('groq','llama3-70b-8192')" modelid="groq-llama3-70b-8192"
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-70B
-                </div>
-                <div onclick="set_default_model('groq','llama3-8b-8192')" modelid="groq-llama3-8b-8192"
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">llama-3-8B
-                </div>
-              </div>
-              <div Apihandle="Groq" class="models  grid grid-cols-3 space-x-2 ml-2">
-                <div onclick='add_api("groq")' k
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
-                    src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
-                    class="ml-2"> Add API</span></div>
-              </div>
-              <div class='w-full border-white border-2 rounded-lg p-2'><a class="w-full"
-                  href='https://aistudio.google.com/app/apikey'>Gemini Models</a></div>
-              <div class="models  grid grid-cols-3 space-x-2 ml-2">
-                <div onclick="set_default_model('gemini','gemini-1.5-pro')" modelid="gemini-gemini-1-5-pro"
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-pro
-                </div>
-                <div onclick="set_default_model('gemini','gemini-1.5-flash')" modelid="gemini-gemini-1-5-flash"
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.5-flash
-                </div>
-                <div onclick="set_default_model('gemini','gemini-1.0-pro')" modelid="gemini-gemini-1-0-pro"
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-green-600 border-blue-600">gemini-1.0-pro
-                </div>
-              </div>
-              <div Apihandle="Gemini" class="models  grid grid-cols-3 space-x-2 ml-2">
-                <div onclick='add_api("gemini")'
-                  class="cursor-pointer rounded-md border-2 p-2 hover:border-blue-600 border-red-600 flex"><img
-                    src="assests/plus-circle.svg" style="filter: invert(1);" class="h-full aspect-square" alt=""><span
-                    class="ml-2"> Add API</span></div>
-              </div>
+        <div onclick="hide_show('preferences',['models','apperance','preferences','other'])"
+          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Preferneces
+        </div>
+        <div onclick="hide_show('other',['models','apperance','preferences','other'])"
+          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Other</div>
+      </div>
+      <div class="w-[80%] p-2 ">
+        <div id="models" class="flex w-full h-full space-x-2">
+          <div class="w-[20%] h-full flex flex-col space-y-2">
+            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
+              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Chat
+            </div>
+            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
+              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Image
+            </div>
+            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
+              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Visual
+            </div>
+            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
+              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Embedding
             </div>
           </div>
+          <div class="w-[80%] h-full">
+            <div id="model-chat" class="w-full h-full">
+              <div class="w-[50%] mx-[25%] h-[10%] p-2 flex justify-between items-center">
+                <div onclick="hide_show('model-chat-select',['model-chat-select','model-chat-search'])" class=" hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
+                  Select</div>
+                <div onclick="hide_show('model-chat-search',['model-chat-select','model-chat-search'])" class="hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
+                  Search</div>
+              </div>
+              <div id="model-chat-select" class="w-full h-[90%] p-2 border-2 rounded-xl ">
+                <div class="flex w-full p-4">
+                  <div class="w-[30%]"><label for="">Select Provider</label></div>
+                  <div class="w-[70%]">
+                    <select onchange="set_model_list()" name="chat-provider" class="bg-dark-1 text-light-1 w-[80%]" id="chat-provider">
+                      <!-- <option value="groq">Groq</option>
+                      <option value="lepton">Lepton</option>
+                      <option value="gemini">Gemini</option>
+                      <option value="cohere">Cohere</option>
+                      <option value="huggingface">Huggingface</option> -->
+                    </select>
+                  </div>
+                </div>
+                <div class="flex w-full p-4">
+                  <div class="w-[30%]"><label for="">Select Model</label></div>
+                  <div class="w-[70%]">
+                    <select onchange="set_api_list()" name="chat-model" class="bg-dark-1 text-light-1 w-[80%]" id="chat-model">
+                      <!-- <option value="groq">Groq</option>
+                      <option value="lepton">Lepton</option>
+                      <option value="gemini">Gemini</option>
+                      <option value="cohere">Cohere</option>
+                      <option value="huggingface">Huggingface</option> -->
+                    </select>
+                  </div>
+                </div>
+                <div class="flex w-full p-4">
+                  <div class="w-[30%]"><label for="">Select API</label></div>
+                  <div class="w-[70%] flex">
+                    <select name="chat-api" onchange="set_defaults()" class="bg-dark-1 p-2 text-light-1 w-[80%]" id="chat-api">
+                      <!-- <option value="groq">Groq</option>
+                      <option value="lepton">Lepton</option> -->
+                    </select>
+                    <img onclick="add_api($('#chat-provider').val())" class="aspect-square max-h-[5vh] rounded-full flex-grow" src="assests/plus-circle.svg" style='filter:invert(1)' alt="">
+                  </div>
+                </div>
+                <script>
+                  $('#chat-provider').select2()
+                  $('#chat-model').select2()
+                  $('#chat-api').select2()
+                </script>
+              </div>
+              <div id="model-chat-search" class="hidden w-full h-[90%]">
+                <div class="h-full w-full overflow-auto">
+                  <div class="w-full h-[10vh] flex justify-between items-center p-2">
+                    <input onkeypress="update_model_search()" id="search-model" class="h-[9vh] w-full bg-dark-1 text-light-1 rounded-lg p-2" type="text" placeholder="Search for Model or Provider">
+                  </div>
+                  <div class="h-[90%] w-full">
+                    <table class="table-auto w-full h-full overflow-y-auto text-center">
+                      <thead>
+                        <tr>
+                          <th>Provider</th>
+                          <th>Model</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="chat-provider-search-list">
+                        <tr class="h-[7vh] hover:border-green-600 border-2">
+                          <td>Groq</td>
+                          <td>Groq</td>
+                          <td><div class="w-[5%] aspect-square rounded-full bg-green-600 ml-[47.5%]"></div></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="'model-image" class="hidden w-full h-full"></div>
+            <div id="'model-visual" class="hidden w-full h-full"></div>
+            <div id="'model-embedding" class="hidden w-full h-full"></div>
+          </div>
         </div>
+        <div id="apperance" class="hidden w-full h-full"></div>
+        <div id="preferences" class="hidden w-full h-full"></div>
+        <div id="other" class="hidden w-full h-full"></div>
       </div>
-
     </div>
+
   </div>
   <!-- /Setting main -->
   <div class="w-full h-full flex">
-    <div class="av-bar w-[20%] md:w-[10%] lg:w-[7%] xl:w-[5%] bg-dark-400 flex flex-col justify-between">
+    <div class="av-bar w-[20%] md:w-[10%] lg:w-[7%] xl:w-[5%] bg-dark-2 flex flex-col justify-between">
       <ul class="w-full  flex-col h-auto p-2 space-y-2">
         <li
-          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
           <img src="assests/home.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
         <li
-          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
           <img src="assests/code.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
         <li
-          class="w-full rounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
           <img src="assests/book.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
         <li onclick="settings()"
-          class="cursor-pointer w-full `1qrounded-lg text-light-400 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="cursor-pointer w-full `1qrounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
           <img src="assests/settings.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
 
       </ul>
       <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
         <li
-          class="w-full rounded-lg text-light-400 bottom-0 hover:bg-dark-300 p-2 aspect-square flex justify-center items-center">
+          class="w-full rounded-lg text-light-1 bottom-0 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
           <img src="assests/arrow-left.svg" style="filter: invert(1);" alt="" srcset="">
         </li>
       </ul>
     </div>
-    <div class="main h-full w-[95%] bg-dark-300">
+    <div class="main h-full w-[95%] bg-dark-1">
       <div class="flex flex-col w-full h-full p-2">
         <div class="h-[90%] flex flex-col w-full">
           <div class="w-full flex h-full">
             <div class="w-[7%] h-full flex justify-center items-center">
               <ul class="w-auto h-auto space-y-10">
-                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-400">
+                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-2">
                   <img src="assests/arrow-up.svg" alt="" srcset="">
                 </li>
-                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-400">
+                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-2">
                   <img src="assests/arrow-down.svg" alt="" srcset="">
                 </li>
               </ul>
@@ -189,43 +256,45 @@
     }
     // Here is ctrl_Enter for message sending
     // script.js
-$(document).ready(function() {
-    $('#myTextarea').on('keydown', function(event) {
+    $(document).ready(function () {
+      $('#myTextarea').on('keydown', function (event) {
         if (event.ctrlKey && event.key === 'Enter') {
-            event.preventDefault(); // Prevent the default action (newline in textarea)
-            callMyFunction();
+          event.preventDefault(); // Prevent the default action (newline in textarea)
+          callMyFunction();
         }
-    });
+      });
 
-    function callMyFunction() {
+      function callMyFunction() {
         console.log('Ctrl + Enter was pressed!');
         // Add your function logic here
-    }
-});// script.js
-  $(document).ready(function() {
-      $('#send_input').on('keydown', function(event) {
-          if (event.ctrlKey && event.key === 'Enter') {
-              event.preventDefault(); // Prevent the default action (newline in textarea)
-              chain_started();
-          }
+      }
+    });// script.js
+    $(document).ready(function () {
+      $('#send_input').on('keydown', function (event) {
+        if (event.ctrlKey && event.key === 'Enter') {
+          event.preventDefault(); // Prevent the default action (newline in textarea)
+          chain_started();
+        }
       });
-  });
-  
+    });
+
   </script>
 
   <script>
     const timestamp = new Date().getTime();
 
     const scripts = [
+      "js/encoder/main.js",
       "js/cookies.js",
-      "js/load_settings.js",
       "js/api.js",
       "js/prompts.js",
       "js/chat/main.js",
       "js/chat/append_messages.js",
       "js/websearch/webscout.js",
-      "js/encoder/main.js",
-      "js/info/main.js"
+      "js/info/main.js",
+      "js/store/main.js",
+      "js/tools.js",
+      "js/load_settings_new.js",
     ];
 
     scripts.forEach(script => {
@@ -234,6 +303,8 @@ $(document).ready(function() {
       document.body.appendChild(scriptElement);
     });
   </script>
+
+  <!-- Conversation Save logics -->
 </body>
 
 </html>
