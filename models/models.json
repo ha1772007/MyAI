@@ -14,7 +14,8 @@
                 "mixtral-8x7b-32768",
                 "gemma-7b-it",
                 "gemma2-9b-it"
-            ]
+            ],
+            "default_api":[]
         },
         "Lepton AI": {
             "provider_id": "lepton",
@@ -31,7 +32,8 @@
                 "gemma-7b",
                 "mixtral-8x7b",
                 "llama2-13b"
-            ]
+            ],
+            "default_api":[]
         },
         "Gemini": {
             "provider_id": "gemini",
@@ -40,7 +42,8 @@
                 "gemini-1.5-pro",
                 "gemini-1.5-flash",
                 "gemini-1.0-pro"
-            ]
+            ],
+            "default_api":[]
         },
         "Cohere": {
             "provider_id": "cohere",
@@ -52,7 +55,8 @@
                 "command-nightly",
                 "command-light",
                 "command-light-nightly"
-            ]
+            ],
+            "default_api":[]
         }
     }
 }

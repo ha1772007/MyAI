@@ -76,8 +76,12 @@ function chain_started() {
 
 function create_conversation(chain) {
     try {
-        if ($.parseJSON(getCookie('default')) && $.parseJSON(getCookie('default')).model.provider == $.parseJSON(getCookie('default')).api.provider) {
+        if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).api !== null && $.parseJSON(getCookie('default')).provider !== null && $.parseJSON(getCookie('default')).model !== null){
+            try{
             jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).provider, model: $.parseJSON(getCookie('default')).model, api: $.parseJSON(getCookie('default')).api ,other:$.parseJSON(getCookie('other'))}
+            }catch (error){
+                create_error('settings','Default model or provider is not as expected')
+            }
             $.ajax({
                 url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
                 type: 'POST',
@@ -88,7 +92,7 @@ function create_conversation(chain) {
                     try {
                         response = $.parseJSON(response)
                     } catch (error) {
-                        create_error('JSON','Response is invalid JSON')
+                        create_error('JSON',`Response is invalid JSON\n${response.toString()}`)
                         console.log(error.toString())
                     }
                     console.log({ message: response, type: 'Success' });
@@ -112,6 +116,7 @@ function create_conversation(chain) {
             console.log({ message: 'default setting is not as expected', type: 'Error' })
         }
     } catch (error) {
+        create_error('Error',error.message)
         console.log({ message: error.message, type: 'Error' })
     }
 }
