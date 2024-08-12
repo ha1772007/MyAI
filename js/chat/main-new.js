@@ -102,7 +102,7 @@ function create_conversation(chain,others) {
                     create_error('settings', 'Default model or provider is not as expected')
                 }
                 $.ajax({
-                    url: 'http://localhost:1777', // Replace with your endpoint URL
+                    url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(jsonData),
