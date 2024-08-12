@@ -3,6 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+
+  </script>
+  <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- <script>
     let chatPar = new URLSearchParams(window.location.search)
@@ -94,16 +106,19 @@
           <div class="w-[80%] h-full">
             <div id="model-chat" class="w-full h-full">
               <div class="w-[50%] mx-[25%] h-[10%] p-2 flex justify-between items-center">
-                <div onclick="hide_show('model-chat-select',['model-chat-select','model-chat-search'])" class=" hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
+                <div onclick="hide_show('model-chat-select',['model-chat-select','model-chat-search'])"
+                  class=" hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
                   Select</div>
-                <div onclick="hide_show('model-chat-search',['model-chat-select','model-chat-search'])" class="hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
+                <div onclick="hide_show('model-chat-search',['model-chat-select','model-chat-search'])"
+                  class="hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
                   Search</div>
               </div>
               <div id="model-chat-select" class="w-full h-[90%] p-2 border-2 rounded-xl ">
                 <div class="flex w-full p-4">
                   <div class="w-[30%]"><label for="">Select Provider</label></div>
                   <div class="w-[70%]">
-                    <select onchange="set_model_list()" name="chat-provider" class="bg-dark-1 text-light-1 w-[80%]" id="chat-provider">
+                    <select onchange="set_model_list()" name="chat-provider" class="bg-dark-1 text-light-1 w-[80%]"
+                      id="chat-provider">
                       <!-- <option value="groq">Groq</option>
                       <option value="lepton">Lepton</option>
                       <option value="gemini">Gemini</option>
@@ -115,7 +130,8 @@
                 <div class="flex w-full p-4">
                   <div class="w-[30%]"><label for="">Select Model</label></div>
                   <div class="w-[70%]">
-                    <select onchange="set_api_list()" name="chat-model" class="bg-dark-1 text-light-1 w-[80%]" id="chat-model">
+                    <select onchange="set_api_list()" name="chat-model" class="bg-dark-1 text-light-1 w-[80%]"
+                      id="chat-model">
                       <!-- <option value="groq">Groq</option>
                       <option value="lepton">Lepton</option>
                       <option value="gemini">Gemini</option>
@@ -127,11 +143,14 @@
                 <div class="flex w-full p-4">
                   <div class="w-[30%]"><label for="">Select API</label></div>
                   <div class="w-[70%] flex">
-                    <select name="chat-api" onchange="set_defaults()" class="bg-dark-1 p-2 text-light-1 w-[80%]" id="chat-api">
+                    <select name="chat-api" onchange="set_defaults()" class="bg-dark-1 p-2 text-light-1 w-[80%]"
+                      id="chat-api">
                       <!-- <option value="groq">Groq</option>
                       <option value="lepton">Lepton</option> -->
                     </select>
-                    <img onclick="add_api($('#chat-provider').val())" class="aspect-square max-h-[5vh] rounded-full flex-grow" src="assests/plus-circle.svg" style='filter:invert(1)' alt="">
+                    <img onclick="add_api($('#chat-provider').val())"
+                      class="aspect-square max-h-[5vh] rounded-full flex-grow" src="assests/plus-circle.svg"
+                      style='filter:invert(1)' alt="">
                   </div>
                 </div>
                 <script>
@@ -143,7 +162,9 @@
               <div id="model-chat-search" class="hidden w-full h-[90%]">
                 <div class="h-full w-full overflow-auto">
                   <div class="w-full h-[10vh] flex justify-between items-center p-2">
-                    <input onkeypress="update_model_search()" id="search-model" class="h-[9vh] w-full bg-dark-1 text-light-1 rounded-lg p-2" type="text" placeholder="Search for Model or Provider">
+                    <input onkeypress="update_model_search()" id="search-model"
+                      class="h-[9vh] w-full bg-dark-1 text-light-1 rounded-lg p-2" type="text"
+                      placeholder="Search for Model or Provider">
                   </div>
                   <div class="h-[90%] w-full">
                     <table class="table-auto w-full h-full overflow-y-auto text-center">
@@ -158,7 +179,9 @@
                         <tr class="h-[7vh] hover:border-green-600 border-2">
                           <td>Groq</td>
                           <td>Groq</td>
-                          <td><div class="w-[5%] aspect-square rounded-full bg-green-600 ml-[47.5%]"></div></td>
+                          <td>
+                            <div class="w-[5%] aspect-square rounded-full bg-green-600 ml-[47.5%]"></div>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -288,7 +311,7 @@
       "js/cookies.js",
       "js/api.js",
       "js/prompts.js",
-      "js/chat/main.js",
+      "js/chat/main-new.js",
       "js/chat/append_messages.js",
       "js/websearch/webscout.js",
       "js/info/main.js",
