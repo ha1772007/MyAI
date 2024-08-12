@@ -52,6 +52,7 @@ function chain_started() {
 
     });
     message_context = $('#send_input').val()
+    $('#send_input').val('')
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
         append_user(message_context,message_context)
         conversation.push({ 'role': 'user', 'context': message_context });
