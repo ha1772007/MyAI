@@ -12,8 +12,10 @@ function getCookie(name) {
 }
 
 
-// Set the cookie with the JSON string
-function setCookie(name, jsonData){
-const jsonString = JSON.stringify(jsonData);
-document.cookie = `${name}=${encodeURIComponent(jsonString)}`;
-}
+function setCookie(name, jsonData) {
+    const jsonString = JSON.stringify(jsonData);
+    const expiresDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 1 year from now
+    const expireString = expiresDate.toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(jsonString)}; expires=${expireString}`;
+  }
+  
