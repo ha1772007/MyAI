@@ -34,7 +34,7 @@ async function NormalCodeBlock() {
 }
 
 async function code_block_handler() {
-  const response = await fetch(`/js/chat/filename.json`);
+  const response = await fetch(`https://ha1772007.github.io/MyAI/js/chat/filename.json`);
   const languages = await response.json();
   console.log(languages)
   const codeElements = $('code[class*="language-"]');
