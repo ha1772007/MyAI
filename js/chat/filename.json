@@ -1,0 +1,190 @@
+{
+    "java": {
+        "language": "java",
+        "filename": "Main.java"
+    },
+    "python": {
+        "language": "python",
+        "filename": "main.py"
+    },
+    "c": {
+        "language": "c",
+        "filename": "main.c"
+    },
+    "cpp": {
+        "language": "cpp",
+        "filename": "main.cpp"
+    },
+    "nodejs": {
+        "language": "nodejs",
+        "filename": "app.js"
+    },
+    "javascript": {
+        "language": "javascript",
+        "filename": "script.js"
+    },
+    "groovy": {
+        "language": "groovy",
+        "filename": "main.groovy"
+    },
+    "jshell": {
+        "language": "jshell",
+        "filename": "Main.jsh"
+    },
+    "haskell": {
+        "language": "haskell",
+        "filename": "main.hs"
+    },
+    "tcl": {
+        "language": "tcl",
+        "filename": "main.tcl"
+    },
+    "lua": {
+        "language": "lua",
+        "filename": "main.lua"
+    },
+    "ada": {
+        "language": "ada",
+        "filename": "main.adb"
+    },
+    "commonlisp": {
+        "language": "commonlisp",
+        "filename": "main.lisp"
+    },
+    "d": {
+        "language": "d",
+        "filename": "main.d"
+    },
+    "elixir": {
+        "language": "elixir",
+        "filename": "main.exs"
+    },
+    "erlang": {
+        "language": "erlang",
+        "filename": "main.erl"
+    },
+    "f#": {
+        "language": "f#",
+        "filename": "main.fs"
+    },
+    "fortran": {
+        "language": "fortran",
+        "filename": "main.f90"
+    },
+    "assembly": {
+        "language": "assembly",
+        "filename": "main.asm"
+    },
+    "scala": {
+        "language": "scala",
+        "filename": "Main.scala"
+    },
+    "php": {
+        "language": "php",
+        "filename": "index.php"
+    },
+    "python2": {
+        "language": "python2",
+        "filename": "main.py"
+    },
+    "c#": {
+        "language": "c#",
+        "filename": "Program.cs"
+    },
+    "perl": {
+        "language": "perl",
+        "filename": "main.pl"
+    },
+    "ruby": {
+        "language": "ruby",
+        "filename": "main.rb"
+    },
+    "go": {
+        "language": "go",
+        "filename": "main.go"
+    },
+    "r": {
+        "language": "r",
+        "filename": "main.r"
+    },
+    "racket": {
+        "language": "racket",
+        "filename": "main.rkt"
+    },
+    "ocaml": {
+        "language": "ocaml",
+        "filename": "main.ml"
+    },
+    "visual basic": {
+        "language": "visual basic",
+        "filename": "Main.vb"
+    },
+    "basic": {
+        "language": "basic",
+        "filename": "main.bas"
+    },
+    "bash": {
+        "language": "bash",
+        "filename": "script.sh"
+    },
+    "clojure": {
+        "language": "clojure",
+        "filename": "main.clj"
+    },
+    "typescript": {
+        "language": "typescript",
+        "filename": "main.ts"
+    },
+    "cobol": {
+        "language": "cobol",
+        "filename": "main.cob"
+    },
+    "kotlin": {
+        "language": "kotlin",
+        "filename": "Main.kt"
+    },
+    "pascal": {
+        "language": "pascal",
+        "filename": "main.pas"
+    },
+    "prolog": {
+        "language": "prolog",
+        "filename": "main.pl"
+    },
+    "rust": {
+        "language": "rust",
+        "filename": "main.rs"
+    },
+    "swift": {
+        "language": "swift",
+        "filename": "Main.swift"
+    },
+    "objective-c": {
+        "language": "objective-c",
+        "filename": "main.m"
+    },
+    "octave": {
+        "language": "octave",
+        "filename": "main.m"
+    },
+    "text": {
+        "language": "text",
+        "filename": "text.txt"
+    },
+    "brainfk": {
+        "language": "brainfk",
+        "filename": "main.bf"
+    },
+    "coffeescript": {
+        "language": "coffeescript",
+        "filename": "main.coffee"
+    },
+    "ejs": {
+        "language": "ejs",
+        "filename": "main.ejs"
+    },
+    "html": {
+        "language": "html",
+        "filename": "index.html"
+    }
+}
