@@ -16,7 +16,8 @@
                 "gemma-7b-it",
                 "gemma2-9b-it"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":false
         },
         "qwen_space": {
             "provider_id": "qwen",
@@ -25,7 +26,8 @@
             "models": [
                 "72B"
             ],
-            "default_api": ["No API"]
+            "default_api": ["No API"],
+            "flash_tool":true
         },
         "Lepton AI": {
             "provider_id": "lepton",
@@ -44,7 +46,8 @@
                 "mixtral-8x7b",
                 "llama2-13b"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":true
         },
         "Gemini": {
             "provider_id": "gemini",
@@ -56,7 +59,8 @@
                 "gemini-1.5-flash",
                 "gemini-1.0-pro"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":false
         },
         "Cohere": {
             "provider_id": "cohere",
@@ -70,7 +74,8 @@
                 "command-light",
                 "command-light-nightly"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":false
         },
         "OpenRouter": {
             "provider_id": "openrouter",
@@ -91,7 +96,8 @@
                 "gryphe/mythomist-7b:free",
                 "undi95/toppy-m-7b:free"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":false
         },
         "Workers AI": {
             "provider_id": "cloudflare",
@@ -134,7 +140,8 @@
                 "@cf/fblgit/una-cybertron-7b-v2-bf16",
                 "@hf/thebloke/zephyr-7b-beta-awq"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":true
         },
         "Segmind": {
             "provider_id": "segmind",
@@ -143,7 +150,8 @@
             "models": [
                 "gpt-4o"
             ],
-            "default_api": []
+            "default_api": [],
+            "flash_tool":true
         }
     }
 }

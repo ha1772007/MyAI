@@ -1,17 +1,28 @@
 import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
 function langchain_connect(chain, others) {
+    let provider;
+    let endpoint;
+    console.log(others)
+    if(others['flash_tool']){
+        provider = "Flash-Tool"
+        endpoint = "https://ha1772007-flash-tool.hf.space/"
+        
+    }else{
+        provider = $.parseJSON(getCookie('default')).provider
+        endpoint = 'https://ha1772007-langchain-simple-server.hf.space/'
+    }
     return new Promise(resolve => {
         try {
             if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).api !== null && $.parseJSON(getCookie('default')).provider !== null && $.parseJSON(getCookie('default')).model !== null) {
                 let jsonData;
                 try {
-                    jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).provider, model: $.parseJSON(getCookie('default')).model, api: $.parseJSON(getCookie('default')).api, other: others };
+                    jsonData = { conversation: chain, provider: provider, model: $.parseJSON(getCookie('default')).model, api: $.parseJSON(getCookie('default')).api, other: others };
                     console.log(jsonData)
                 } catch (error) {
                     create_error('settings', 'Default model or provider is not as expected')
                 }
                 $.ajax({
-                    url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
+                    url: endpoint, // Replace with your endpoint URL
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(jsonData),
@@ -47,6 +58,9 @@ function langchain_connect(chain, others) {
 
 
 async function qwen_space(chain, other) {
+    if(other["flash_tool"]){
+        return await langchain_connect(chain,other)
+    }
     let asks = qwen_space_parser(chain);
     if (checknu(asks)) {
         let client = await Client.connect("Qwen/Qwen2-72B-Instruct");
