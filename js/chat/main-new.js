@@ -97,7 +97,13 @@ function creation_chain(conversation, others) {
                     window[functionname](con, others = others).then(response => {
                         if (response.additional_kwargs == undefined || response.additional_kwargs.tool_calls == undefined || response.additional_kwargs.tool_calls.length < 1 || response.additional_kwargs.tool_calls == null) {
                             console.log('No tool confirm')
+                            if(others['flash_tool']){
+                                creation_chain(con, others = {}).then(finalresp => {
+                                    resolve(finalresp)
+                                })
+                            }else{
                             resolve(response)
+                        }
                         } else {
                             console.log('tool confirm')
                             if (con[con.length - 1]['role'] == 'user') {
