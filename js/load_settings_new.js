@@ -13,38 +13,41 @@ function set_defaults() {
   }
 }
 function set_model_list() {
-  return new Promise(resolve => {
+  return new Promise(async (resolve) => {
     let thisprovider = $('#chat-provider').val()
     $('#chat-model').html('')
-    fetch('models/models.json?r=10').then(response => response.json()).then(models => {
-      let modellist = null;
-      for (let provider in models['Chat Models']) {
-        if (models['Chat Models'][provider]['provider_id'] == thisprovider) {
-          modellist = models['Chat Models'][provider]['models'];
-          break;
+    let modellist = null;
+    const response = await fetch('models/models.json?r=5');
+    const models = await response.json();
+    for (let provider in models['Chat Models']) {
+      if (models['Chat Models'][provider]['provider_id'] == thisprovider) {
+        modellist = models['Chat Models'][provider]['models'];
+        let thispval = models['Chat Models'][provider]
+        if (modellist == undefined) {
+          modellist = await window[thispval["modelsfromfunction"]](thispval["modelsfromfunctionparam"])
         }
-      };
-      console.log(modellist)
-      modellist.forEach(thismodel => {
-        console.log(thismodel)
-        if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).model !== undefined && $.parseJSON(getCookie('default')).model !== null) {
-          if ($.parseJSON(getCookie('default')).model == thismodel) {
-            $('#chat-model').append(`<option value="${thismodel}" selected>${thismodel}</option>`)
-          } else {
-            $('#chat-model').append(`<option value="${thismodel}">${thismodel}</option>`)
-
-          }
+        break;
+      }
+    };
+    console.log(modellist)
+    modellist.forEach(thismodel => {
+      console.log(thismodel)
+      if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).model !== undefined && $.parseJSON(getCookie('default')).model !== null) {
+        if ($.parseJSON(getCookie('default')).model == thismodel) {
+          $('#chat-model').append(`<option value="${thismodel}" selected>${thismodel}</option>`)
         } else {
           $('#chat-model').append(`<option value="${thismodel}">${thismodel}</option>`)
 
         }
+      } else {
+        $('#chat-model').append(`<option value="${thismodel}">${thismodel}</option>`)
 
-      });
-      set_api_list().then(r => {
-        set_defaults();
-        resolve('');
-      })
+      }
 
+    });
+    set_api_list().then(r => {
+      set_defaults();
+      resolve('');
     })
   })
 }
@@ -97,39 +100,44 @@ function set_api_list() {
 }
 
 function chat_models_list() {
-  return new Promise(resolve => {
+  return new Promise(async (resolve) => {
     console.log('chat model list called')
-    fetch('models/models.json?r=2').then(response => response.json()).then(models => {
-      // # Setup Provider List
-      // ## for reset
-      $('#chat-provider').html('')
-      $('#chat-provider-search-list').html('')
-      for (let thisprovider in models['Chat Models']) {
-        thispval = models['Chat Models'][thisprovider]
-        console.log(thispval)
-        // ## Manage Option List
-        if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).provider !== undefined && $.parseJSON(getCookie('default')).provider !== null) {
-          if ($.parseJSON(getCookie('default')).provider == thispval['provider_id']) {
-            $('#chat-provider').append(`<option value="${thispval['provider_id']}" selected>${thisprovider}</option>`)
-          } else {
-            $('#chat-provider').append(`<option value="${thispval['provider_id']}">${thisprovider}</option>`)
-          }
+    const response = await fetch('models/models.json?r=5');
+    const models = await response.json();
+    // # Setup Provider List
+    // ## for reset
+    $('#chat-provider').html('')
+    $('#chat-provider-search-list').html('')
+    for (let thisprovider in models['Chat Models']) {
+      thispval = models['Chat Models'][thisprovider]
+      console.log(thispval)
+      // ## Manage Option List
+      if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).provider !== undefined && $.parseJSON(getCookie('default')).provider !== null) {
+        if ($.parseJSON(getCookie('default')).provider == thispval['provider_id']) {
+          $('#chat-provider').append(`<option value="${thispval['provider_id']}" selected>${thisprovider}</option>`)
         } else {
           $('#chat-provider').append(`<option value="${thispval['provider_id']}">${thisprovider}</option>`)
-          console.log('undefined default value of Provider')
         }
-        // ## Manage Table List
-        thismodels = thispval['models'];
-        thismodels.forEach(thismodel => {
-          $('#chat-provider-search-list').append(`<tr onclick='search_change_model("${thispval['provider_id']}","${thismodel}")' class="h-[7vh] hover:border-green-600 border-2">
+      } else {
+        $('#chat-provider').append(`<option value="${thispval['provider_id']}">${thisprovider}</option>`)
+        console.log('undefined default value of Provider')
+      }
+      // ## Manage Table List
+      thismodels = thispval['models'];
+      if (thismodels == undefined) {
+        console.log(thismodels)
+        thismodels = await window[thispval["modelsfromfunction"]](thispval["modelsfromfunctionparam"])
+
+      }
+      thismodels.forEach(thismodel => {
+        $('#chat-provider-search-list').append(`<tr onclick='search_change_model("${thispval['provider_id']}","${thismodel}")' class="h-[7vh] hover:border-green-600 border-2">
             <td>${thisprovider}</td>
             <td>${thismodel}</td>
             <td id="status-${Stable_encoder(thisprovider)}-${Stable_encoder(thismodel)}"></td>
           </tr>`);
-        });
-      }
-      resolve()
-    })
+      });
+    }
+    resolve()
   })
 
 }
@@ -137,19 +145,19 @@ function chat_models_list() {
 function load_settings() {
   // intialization of cookies
   if ($.parseJSON(getCookie('default')) == undefined) {
-    setCookie('default', { 'model': null, 'api': null, 'provider': null })
+    setCookie('default', { 'model': "72B", 'api': "No API", 'provider': "qwen" })
   }
   // Call chat_models_list
   chat_models_list().then(resolve => {
 
-    set_model_list().then(resolved =>{
+    set_model_list().then(resolved => {
       set_api_list()
     })
   }
 
   )
   // set  Default of API and load api list
-  
+
   // Check and Set Default model Provider
 
   // IN end some importants

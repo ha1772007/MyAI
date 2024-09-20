@@ -46,6 +46,14 @@
             ],
             "default_api": []
         },
+        "Github": {
+            "provider_id": "github",
+            "function": "openai",
+            "api_url": "https://dashboard.lepton.ai/",
+            "modelsfromfunction":"openai_model",
+            "modelsfromfunctionparam":{"endpoint":"https://models.inference.ai.azure.com/"},
+            "default_api": []
+        },
         "Gemini": {
             "provider_id": "gemini",
             "function": "langchain_connect",

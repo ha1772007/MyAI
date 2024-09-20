@@ -1,3 +1,7 @@
+// import {langchain_connect, qwen_space} from "/js/chain/functions.js";
+function checknu(param){
+    return(param !== undefined && param !== null)
+}
 
 
 function chain_started_after_error() {
@@ -21,7 +25,7 @@ function chain_started_after_error() {
         }
 
     });
-    creation_chain(conversation,others={'tools':['search']}).then(answer => {
+    creation_chain(conversation, others = { 'tools': ['search'] }).then(answer => {
         append_ai(answer.content, answer.DirectResult)
     })
 
@@ -54,10 +58,11 @@ function chain_started() {
     message_context = $('#send_input').val()
     $('#send_input').val('')
     if (message_context !== '' && message_context !== null && message_context !== undefined) {
-        append_user(message_context,message_context)
+        append_user(message_context, message_context)
+        let id = create_ai_id();
         conversation.push({ 'role': 'user', 'context': message_context });
-        creation_chain(conversation).then(answer => {
-            append_ai(answer.content, answer.DirectResult)
+        creation_chain(conversation, others = { 'tools': ['search'] }).then(answer => {
+            append_ai(id,answer.content, answer.DirectResult)
         })
 
     } else {
@@ -67,74 +72,53 @@ function chain_started() {
 
 }
 
-function creation_chain(conversation,others) {
+function creation_chain(conversation, others) {
     return new Promise(resolve => {
-        let con = conversation
-        create_conversation(con,others=others).then(response => {
-            if (response.additional_kwargs.tool_calls == undefined || response.additional_kwargs.tool_calls.length < 1 || response.additional_kwargs.tool_calls == null) {
-                console.log('No tool confirm')
-                resolve(response)
-            } else {
-                console.log('tool confirm')
-                if (con[con.length - 1]['role'] == 'user') {
-                    let lastmessage = con[con.length - 1]['context']
-                    processTools(response, lastmessage).then(response => {
-                        con[con.length - 1]['context'] = response;
-                        creation_chain(con,others={}).then(finalresp => {
-                            resolve(finalresp)
-                        })
-                    })
-
-                } else {
-                    create_error('last Message is not from User')
+        fetch('models/models.json').then(response => response.json()).then(listofmodel => {
+            let con = conversation;
+            if (checknu(listofmodel) && checknu(getCookie('default')) && checknu($.parseJSON(getCookie('default')).provider)) {
+                let functionname = undefined
+                for (let thisprovider in listofmodel['Chat Models']) {
+                    let chat_models = listofmodel['Chat Models'];
+                    thisprovider = chat_models[thisprovider]
+                    console.log(thisprovider)
+                    if (thisprovider['provider_id'] == $.parseJSON(getCookie('default')).provider) {
+                        functionname = thisprovider['function']
+                    }
                 }
+                if (checknu(functionname)) {
+                    console.log(functionname)
+                    window[functionname](con, others = others).then(response => {
+                        if (response.additional_kwargs == undefined || response.additional_kwargs.tool_calls == undefined || response.additional_kwargs.tool_calls.length < 1 || response.additional_kwargs.tool_calls == null) {
+                            console.log('No tool confirm')
+                            resolve(response)
+                        } else {
+                            console.log('tool confirm')
+                            if (con[con.length - 1]['role'] == 'user') {
+                                let lastmessage = con[con.length - 1]['context']
+                                processTools(response, lastmessage).then(response => {
+                                    con[con.length - 1]['context'] = response;
+                                    creation_chain(con, others = {}).then(finalresp => {
+                                        resolve(finalresp)
+                                    })
+                                })
+
+                            } else {
+                                create_error('last Message is not from User')
+                            }
+                        }
+                    })
+                } else {
+                    create_error('Provider Unavailable')
+                }
+            } else {
+                create_error('Default Setting is Not As Expecting try Clearing Up Catches and other browsing data')
             }
         })
     })
 }
 
-function create_conversation(chain,others) {
-    return new Promise(resolve => {
-        try {
-            if ($.parseJSON(getCookie('default')) !== undefined && $.parseJSON(getCookie('default')) !== null && $.parseJSON(getCookie('default')).api !== null && $.parseJSON(getCookie('default')).provider !== null && $.parseJSON(getCookie('default')).model !== null) {
-                try {
-                    jsonData = { conversation: chain, provider: $.parseJSON(getCookie('default')).provider, model: $.parseJSON(getCookie('default')).model, api: $.parseJSON(getCookie('default')).api, other: others }
-                } catch (error) {
-                    create_error('settings', 'Default model or provider is not as expected')
-                }
-                $.ajax({
-                    url: 'https://ha1772007-langchain-simple-server.hf.space/', // Replace with your endpoint URL
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(jsonData),
-                    success: function (response) {
-                        $('#send_buttton').prop('disabled', false)
-                        try {
-                            response = $.parseJSON(response)
-                        } catch (error) {
-                            create_error('JSON', `Response is invalid JSON\n${response.toString()}`)
-                            console.log(error.toString())
-                        }
-                        console.log({ message: response, type: 'Success' });
-                        resolve(response)
-                    },
-                    error: function (xhr, status, error) {
-                        create_error('Conection', 'Unable to connect to Endpoint See console for more details')
-                        console.log('xhr response\n' + xhr + '\n' + 'status response\n' + status + '\n' + 'error\n' + error + '\n')
-                        console.log({ message: error, type: 'Error' })
-                    }
-                });
-            } else {
-                create_error('Cookies', 'Setup Default Model and API from left setting ICON problem still remains same then Clear Cookies')
-                create_info('Setup Default Model and API from left setting ICON problem still remains same then Clear Cookies')
-                console.log({ message: 'default setting is not as expected', type: 'Error' })
-            }
-        } catch (error) {
-            create_error('Error', error.message)
-            console.log({ message: error.message, type: 'Error' })
-        }
-    })
-}
+
 async function processTools(response, lastmessage) {
     let calloutputs = [];
     let tools = response.additional_kwargs.tool_calls;
@@ -157,7 +141,7 @@ async function processTools(response, lastmessage) {
     }
 
     // Return the result as an object
-    let finalOutput = `Here is User Query ${lastmessage}\n <tool-call-output>` + calloutputs.join('\n')+`</tool-call-output>`;
+    let finalOutput = `Here is User Query ${lastmessage}\n <tool-call-output>` + calloutputs.join('\n') + `</tool-call-output>`;
     console.log(finalOutput);
     return finalOutput;
 }

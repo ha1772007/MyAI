@@ -5,19 +5,39 @@ function append_user(message, full) {
   $('#message_container').append(template)
   MathJax.typesetPromise()
 }
-function append_ai(message, content) {
+function append_ai(id,message, content) {
   var converter = new showdown.Converter();
   let m = converter.makeHtml(content);
-  let template = `<div class="message-content AI-message h-auto w-[99%] flex p-2" content="${Stable_encoder(content)}">
-    <div class="w-[100%] bg-dark-2 rounded-l-md p-2 min-h-[20vh]">${m}</div>
-    
-  </div>`
-  $('#message_container').append(template);
+  $(`#${id}`).attr("content",Stable_encoder(content));
+  $(`#${id}`).find(`div`).first().html(m)
   MathJax.typesetPromise();
   code_block_handler().then(r=>{
   NormalCodeBlock()
   console.log('final')
   })
+}
+function create_ai_id(){
+  let made_class = generate_class()
+  let loading_template = `
+  <div class="p-4 w-full">
+  <div class="animate-pulse w-full ">
+    
+    <div class="flex-1 space-y-4 py-1 w-[90%]">
+      <div class="h-4 bg-[#55679C] opacity-2 rounded w-1/4"></div>
+      <div class="space-y-2 w-full">
+        <div class="h-4 bg-[#55679C] rounded w-3/4"></div>
+        <div class="h-4 bg-[#55679C] rounded w-5/6"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  `
+  let template = `<div id="${made_class}" class="message-content AI-message h-auto w-[99%] flex p-2">
+    <div class="w-[100%] bg-dark-2 rounded-l-md space-y-2 p-2 min-h-[20vh]">${loading_template}</div>
+    
+  </div>`
+  $('#message_container').append(template);
+  return made_class
 }
 
 async function NormalCodeBlock() {
@@ -114,5 +134,9 @@ async function code_block_handler() {
 // Mock function to generate unique IDs
 function generate_class() {
   return 'oc-editor-' + Math.random().toString(36).substr(2, 9);
+}
+
+function make_random() {
+  return 'ai_' + Math.random().toString(36).substr(2, 9);
 }
 
