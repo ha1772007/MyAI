@@ -119,4 +119,3 @@ function create_conversation(chain) {
         create_error('Error',error.message)
         console.log({ message: error.message, type: 'Error' })
     }
-}
