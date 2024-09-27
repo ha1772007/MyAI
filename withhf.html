@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <meta charset="UTF-8">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+
+  </script>
+  <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- <script>
+    let chatPar = new URLSearchParams(window.location.search)
+    let chatid = chatPar.get(chatid);
+    if(chatid == undefined){
+      chatid = generatechatid();
+    }
+  </script> -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com/3.4.4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-1': '#2a2929',
+            'dark-2': '#000000',
+            'light-1': '#F8F8F7',
+            'light-2': '#F5F5F0',
+          },
+          typography: (theme) => ({
+            DEFAULT: {
+              css: {
+                h1: {
+                  '@apply text-3xl font-bold': {},
+                },
+                h2: {
+                  '@apply text-2xl font-semibold': {},
+                },
+                h3: {
+                  '@apply text-xl font-semibold': {},
+                },
+                h4: {
+                  '@apply text-lg font-medium': {},
+                },
+                h5: {
+                  '@apply text-base font-medium': {},
+                },
+                h6: {
+                  '@apply text-sm font-medium': {},
+                },
+              },
+            },
+          }),
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Webkit browsers (Chrome, Safari, etc.) */
+    .scrollable-div::-webkit-scrollbar {
+      width: 1px;
+      /* Width of the scrollbar */
+    }
+
+    .scrollable-div::-webkit-scrollbar-track {
+      background: #2e2e2e;
+      /* Background color of the scrollbar track */
+    }
+
+    .scrollable-div::-webkit-scrollbar-thumb {
+      background: #888;
+      /* Color of the scrollbar thumb */
+      border-radius: 6px;
+      /* Rounded corners for the thumb */
+    }
+
+    .scrollable-div::-webkit-scrollbar-thumb:hover {
+      background: #555;
+      /* Color of the scrollbar thumb on hover */
+    }
+
+    /* Firefox */
+    .scrollable-div {
+      scrollbar-width: thin;
+      /* Thin scrollbar */
+      scrollbar-color: #363636 #000000;
+      /* Thumb color and track color */
+    }
+
+
+    /* Define the animation */
+    @keyframes increaseWidth {
+      from {
+        width: 100px;
+        /* Initial width */
+      }
+
+      to {
+        width: 100%;
+        /* Final width */
+      }
+    }
+  </style>
+</head>
+
+<body class="w-screen h-screen">
+  <div class="w-full h-full flex">
+    <div class="bg-black text-white w-[20%] p-2 py-4 space-y-2">
+      <span class="font-bold">Provider</span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Groq</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Lepton</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Cohere</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Gemini</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label for="">Together
+          AI</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Github</label></span><br>
+      <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
+          for="">Huggingface</label></span><br>
+    </div>
+    <div class="bg-[#2a2929] w-[80%] h-full p-2 space-y-2">
+      <div class="w-[90%] mx-[5%] flex h-[7%] bg-white rounded-xl p-2 ">
+        <input type="text" name="" id="" placeholder="Enter Name Of Model to Search"
+          class="flex-grow h-full p-2 focus:outline-none focus:border-hidden">
+        <button onclick="model_search()" class="h-full aspect-square">
+          <img class="h-full aspect-square" src="" alt=""
+            srcset="https://img.icons8.com/?size=100&id=112468&format=png&color=1A1A1A">
+        </button>
+
+      </div>
+      <div class="h-[92%] w-full overflow-y-auto">
+        <div class="w-[95%] ml-[2.5%] h-[12%] flex p-2 border-2 rounded-xl border-gray-400 space-x-2">
+          <div class="h-full aspect-square rounded-full">
+            <img class="w-full h-full"
+              src="https://cdn-avatars.huggingface.co/v1/production/uploads/66935cee39002fc0569c2943/Qv8QPbkgoKE3wR4jTzHiy.png"
+              alt="" srcset="">
+          </div>
+          <div class="flex-grow flex h-full text-white">
+            <div class="w-3/4 h-full flex flex-col  space-y-1">
+              <div class="h-[60%] font-bold">hf:stepfun-ai/GOT-OCR2_0</div>
+              <div class="h-[40%] text-sm space-x-2 flex">
+                <span class="">text-generation</span>
+                <span class="">Huggingface</span>
+                <span class="flex justify-center items-center h-full"><img class="h-full aspect-square"
+                    src="https://img.icons8.com/?size=600&id=83988&format=png&color=FFFFFF" />122K</span>
+              </div>
+            </div>
+            <div class="w-1/4 h-full space-x-2 flex px-4 justify-end">
+              <img class="h-full aspect-square" src="https://img.icons8.com/?size=100&id=27&format=png&color=00FF00" alt="check-mark-emoji"/>
+              <img class="h-full aspect-square" src="https://img.icons8.com/?size=100&id=59753&format=png&color=00FF00" alt="check-mark-emoji"/>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

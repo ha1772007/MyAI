@@ -6,7 +6,7 @@ function checknu(param){
 
 function chain_started_after_error() {
     $('#send_buttton').prop('disabled', true)
-    let conversation = [{ 'role': 'system', 'context': 'You are an helpfull and intelligent AI managed By MyAI and you have access to mutiple tools and you will get output of them embedded in user query. Do not call function again and again if result already provided in query' }];
+    let conversation = [{ 'role': 'system', 'context': 'You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains <tool-call-output>tool call info</tool-call-output>, do not call the same tool again. Use LaTeX format for writing mathematical equations with $$ as the delimiter. For example: $$x = \frac{{-b \pm \sqrt{{b^2-4ac}}}}{2a}.$$' }];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
             try {
@@ -36,7 +36,9 @@ function chain_started_after_error() {
 
 function chain_started() {
     $('#send_buttton').prop('disabled', true)
-    let conversation = [{ 'role': 'system', 'context': 'You are an helpfull and intelligent AI managed By MyAI and you have access to mutiple tools and you will get output of them embedded in user query. Do not call function again and again even it does not return valid output.If Message Contains <tool-call-output>tool call info</tool-call-putput> then do not call same tool again' }];
+    let conversation = [{ 'role': 'system', 
+        'context': `You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains <tool-call-output>tool call info</tool-call-output>, do not call the same tool again. Use LaTeX format for writing mathematical equations with $$ as the delimiter. For example: $$x = \frac{{-b \pm \sqrt{{b^2-4ac}}}}{2a}.$$` 
+    }];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
             try {
