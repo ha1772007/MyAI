@@ -6,7 +6,21 @@ function checknu(param){
 
 function chain_started_after_error() {
     $('#send_buttton').prop('disabled', true)
-    let conversation = [{ 'role': 'system', 'context': 'You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains <tool-call-output>tool call info</tool-call-output>, do not call the same tool again. Use LaTeX format for writing mathematical equations with $$ as the delimiter. For example: $$x = \frac{{-b \pm \sqrt{{b^2-4ac}}}}{2a}.$$' }];
+    let conversation = [
+        {
+          role: 'system',
+          context: `You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains "<tool-call-output>tool call info</tool-call-output>", do not call the same tool again.
+            
+            For mathematical expressions:
+            - Use \\( ... \\) for inline math expressions that are part of a text.
+            - Use \\[ ... \\] or $$ ... $$ for display math when the expression should appear centered on its own line, separated from the surrounding text.
+            - Do not use $ ... $ instead use \\( ... \\) since one $ is most command and can make errors
+            examples:
+            \\(y=mx\\)
+            ... \\[y=mx\\] ...
+            Ensure LaTeX formatting is accurate and used appropriately for presenting mathematical equations.`
+        }
+      ];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
             try {
@@ -36,9 +50,21 @@ function chain_started_after_error() {
 
 function chain_started() {
     $('#send_buttton').prop('disabled', true)
-    let conversation = [{ 'role': 'system', 
-        'context': `You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains <tool-call-output>tool call info</tool-call-output>, do not call the same tool again. Use LaTeX format for writing mathematical equations with $$ as the delimiter. For example: $$x = \frac{{-b \pm \sqrt{{b^2-4ac}}}}{2a}.$$` 
-    }];
+    let conversation = [
+        {
+          role: 'system',
+          context: `You are a helpful and intelligent AI managed by MyAI. You have access to multiple tools, and you will receive the output of these tools embedded in user queries. Do not call a function again if it has already been called, even if it did not return valid output. If a message contains "<tool-call-output>tool call info</tool-call-output>", do not call the same tool again.
+            
+            For mathematical expressions:
+            - Use \\( ... \\) for inline math expressions that are part of a text.
+            - Use \\[ ... \\] or $$ ... $$ for display math when the expression should appear centered on its own line, separated from the surrounding text.
+            - Do not use $ ... $ instead use \\( ... \\) since one $ is most command and can make errors
+            examples:
+            \\(y=mx\\)
+            ... \\[y=mx\\] ...
+            Ensure LaTeX formatting is accurate and used appropriately for presenting mathematical equations.`
+        }
+      ];
     $('.message-content').each(function (i, current) {
         if (current.classList.contains('human-message')) {
             try {

@@ -7,7 +7,13 @@ function append_user(message, full) {
 }
 function append_ai(id,message, content) {
   var converter = new showdown.Converter();
-  let m = converter.makeHtml(content);
+  let m = converter.makeHtml(content.replaceAll("(","bracketo").replaceAll(")","bracketc").replace(/\$\$.*?\$\$|\\\[(.*?)\\\]|\\bracketo(.*?)\\bracketc/g, (match, p1) => {
+    return "base64str"+Stable_encoder(match)+"base64str"; // Replace $$...$$ with the modified content
+}));
+  m = m.replace(/base64str(.*?)base64str/g,(match,p1)=>{
+    console.log(p1)
+    return Stable_decoder(p1)
+}).replaceAll("bracketo","(").replaceAll("bracketc",")")
   $(`#${id}`).attr("content",Stable_encoder(content));
   $(`#${id}`).find(`div`).first().html(m)
   MathJax.typesetPromise();
