@@ -1,12 +1,15 @@
+var converter = new showdown.Converter();
 function append_user(message, full) {
+  let id =  "usermessage-" + Math.random().toString(36).substr(2, 9);
   let template = `<div class="message-content human-message h-auto w-[99%] flex p-2" content='${Stable_encoder(full)}'>
-    <div class="w-[90%] bg-dark-2 ml-[10%] p-2 rounded-md space-y-2">${message}</div>
+    <div id="${id}" class="w-[90%] bg-dark-2 ml-[10%] p-2 rounded-md space-y-2"></div>
   </div>`
-  $('#message_container').append(template)
+  $('#message_container').append(template);
+  $(`#${id}`).text(message)
   MathJax.typesetPromise()
 }
 function append_ai(id,message, content) {
-  var converter = new showdown.Converter();
+
   let m = converter.makeHtml(content.replaceAll("(","bracketo").replaceAll(")","bracketc").replace(/\$\$.*?\$\$|\\\[(.*?)\\\]|\\bracketo(.*?)\\bracketc/g, (match, p1) => {
     return "base64str"+Stable_encoder(match)+"base64str"; // Replace $$...$$ with the modified content
 }));
