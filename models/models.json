@@ -2,7 +2,7 @@
     "Chat Models": {
         "Groq": {
             "provider_id": "groq",
-            "function": "langchain_connect",
+            "function": "openai_completions",
             "api_url": "https://console.groq.com/keys",
             "models": [
                 "llama-3.1-8b-instant",
@@ -16,6 +16,48 @@
                 "gemma-7b-it",
                 "gemma2-9b-it"
             ],
+            "functions_settings": {
+                "endpoint": "https://api.groq.com/openai/v1/chat/completions",
+                "tools": true
+            },
+            "default_api": [],
+            "flash_tool": false
+        },
+        "Github": {
+            "provider_id": "github",
+            "function": "openai_completions",
+            "api_url": "https://github.com/settings/tokens",
+            "models": [
+                "AI21-Jamba-Instruct",
+                "Cohere-command-r",
+                "Cohere-command-r-plus",
+                "Cohere-embed-v3-english",
+                "Cohere-embed-v3-multilingual",
+                "Meta-Llama-3-70B-Instruct",
+                "Meta-Llama-3-8B-Instruct",
+                "Meta-Llama-3.1-405B-Instruct",
+                "Meta-Llama-3.1-70B-Instruct",
+                "Meta-Llama-3.1-8B-Instruct",
+                "Mistral-large",
+                "Mistral-large-2407",
+                "Mistral-Nemo",
+                "Mistral-small",
+                "gpt-4o",
+                "gpt-4o-mini",
+                "text-embedding-3-large",
+                "text-embedding-3-small",
+                "Phi-3-medium-128k-instruct",
+                "Phi-3-medium-4k-instruct",
+                "Phi-3-mini-128k-instruct",
+                "Phi-3-mini-4k-instruct",
+                "Phi-3-small-128k-instruct",
+                "Phi-3-small-8k-instruct",
+                "Phi-3.5-mini-instruct"
+            ],
+            "functions_settings": {
+                "endpoint": "https://models.inference.ai.azure.com/chat/completions",
+                "tools": true
+            },
             "default_api": [],
             "flash_tool": false
         },
@@ -29,7 +71,7 @@
             "default_api": [
                 "No API"
             ],
-            "flash_tool": true
+            "flash_tool": false
         },
         "Lepton AI": {
             "provider_id": "lepton",
@@ -49,7 +91,7 @@
                 "llama2-13b"
             ],
             "default_api": [],
-            "flash_tool": true
+            "flash_tool": false
         },
         "Gemini": {
             "provider_id": "gemini",
@@ -163,7 +205,7 @@
                 "@hf/thebloke/zephyr-7b-beta-awq"
             ],
             "default_api": [],
-            "flash_tool": true
+            "flash_tool": false
         },
         "Segmind": {
             "provider_id": "segmind",
@@ -173,7 +215,7 @@
                 "gpt-4o"
             ],
             "default_api": [],
-            "flash_tool": true
+            "flash_tool": false
         }
     }
 }
