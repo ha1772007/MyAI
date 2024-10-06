@@ -102,7 +102,7 @@ function chain_started() {
 
 function creation_chain(conversation, others) {
     return new Promise(resolve => {
-        fetch('models/models.json?r=100').then(response => response.json()).then(listofmodel => {
+        fetch('models/models.json?r=104').then(response => response.json()).then(listofmodel => {
             let con = conversation;
             let flash_tool = false
             if (checknu(listofmodel) && checknu(getCookie('default')) && checknu($.parseJSON(getCookie('default')).provider)) {
@@ -113,6 +113,11 @@ function creation_chain(conversation, others) {
                     console.log(thisprovider)
                     if (thisprovider['provider_id'] == $.parseJSON(getCookie('default')).provider) {
                         functionname = thisprovider['function'];
+                        try{
+                            param = thisprovider['functions_settings']
+                        }catch{
+                            param={}
+                        }
                         if(others['tools'] !== undefined){
                         flash_tool = thisprovider['flash_tool']
                     }
@@ -122,11 +127,11 @@ function creation_chain(conversation, others) {
                     console.log(functionname)
                     others['flash_tool'] = flash_tool
                     console.log("Flash Tool is "+others['flash_tool'])
-                    window[functionname](con, others = others).then(response => {
+                    window[functionname](con, others = others, param=param).then(response => {
                         if (response.additional_kwargs == undefined || response.additional_kwargs.tool_calls == undefined || response.additional_kwargs.tool_calls.length < 1 || response.additional_kwargs.tool_calls == null) {
                             console.log('No tool confirm')
                             if(others['flash_tool']){
-                                creation_chain(con, others = {}).then(finalresp => {
+                                creation_chain(con, others = {},param=param).then(finalresp => {
                                     resolve(finalresp)
                                 })
                             }else{
@@ -138,7 +143,7 @@ function creation_chain(conversation, others) {
                                 let lastmessage = con[con.length - 1]['context']
                                 processTools(response, lastmessage).then(response => {
                                     con[con.length - 1]['context'] = response;
-                                    creation_chain(con, others = {}).then(finalresp => {
+                                    creation_chain(con, others = {},param=param).then(finalresp => {
                                         resolve(finalresp)
                                     })
                                 })
