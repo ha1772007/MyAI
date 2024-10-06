@@ -14,7 +14,7 @@ function chain_started_after_error() {
             For mathematical expressions:
             - Use \\( ... \\) for inline math expressions that are part of a text.
             - Use \\[ ... \\] or $$ ... $$ for display math when the expression should appear centered on its own line, separated from the surrounding text.
-            - Do not use $ ... $ instead use \\( ... \\) since one $ is most command and can make errors
+            - Do not use $ ... $ instead use \\( ... \\) since one $ is most common and can make errors
             examples:
             \\(y=mx\\)
             ... \\[y=mx\\] ...
@@ -58,7 +58,7 @@ function chain_started() {
             For mathematical expressions:
             - Use \\( ... \\) for inline math expressions that are part of a text.
             - Use \\[ ... \\] or $$ ... $$ for display math when the expression should appear centered on its own line, separated from the surrounding text.
-            - Do not use $ ... $ instead use \\( ... \\) since one $ is most command and can make errors
+            - Do not use $ ... $ instead use \\( ... \\) since one $ is most common and can make errors
             examples:
             \\(y=mx\\)
             ... \\[y=mx\\] ...

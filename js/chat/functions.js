@@ -200,7 +200,7 @@ async function openai_completions(conversationz, other, param) {
             }
         } else {
             let final = data.choices[0].message
-            if (checknu(final['tool_calls'])) {
+            if (checknu(final['tool_calls']) && final['tool_calls'].length > 0) {
                 let additional_kwargs = {
                     "tool_calls": final.tool_calls
                 };
