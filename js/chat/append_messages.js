@@ -1,6 +1,6 @@
 var converter = new showdown.Converter();
 function append_user(message, full) {
-  let id =  "usermessage-" + Math.random().toString(36).substr(2, 9);
+  let id = "usermessage-" + Math.random().toString(36).substr(2, 9);
   let template = `<div class="message-content human-message h-auto w-[99%] flex p-2" content='${Stable_encoder(full)}'>
     <div id="${id}" class="w-[90%] bg-dark-2 ml-[10%] p-2 rounded-md space-y-2"></div>
   </div>`
@@ -8,24 +8,34 @@ function append_user(message, full) {
   $(`#${id}`).text(message)
   MathJax.typesetPromise()
 }
-function append_ai(id,message, content) {
+function append_ai(id, message, content) {
 
-  let m = converter.makeHtml(content.replaceAll("(","bracketo").replaceAll(")","bracketc").replace(/\$\$.*?\$\$|\\\[(.*?)\\\]|\\bracketo(.*?)\\bracketc/g, (match, p1) => {
-    return "base64str"+Stable_encoder(match)+"base64str"; // Replace $$...$$ with the modified content
-}));
-  m = m.replace(/base64str(.*?)base64str/g,(match,p1)=>{
+  let m = converter.makeHtml(content.replaceAll("\\(", "bracketo")
+    .replaceAll("\\)", "bracketc")
+    .replaceAll("\\[", "bracketsquareo")
+    .replaceAll("\\]", "bracketsquarec")
+    .replace(/\$\$.*?\$\$|\\squarebracketo(.*?)\\squarebracketc|\\bracketo(.*?)\\bracketc/g, (match, p1) => {
+      return "base64str" + Stable_encoder(match) + "base64str"; // Replace $$...$$ with the modified content
+    }));
+  m = m.replace(/base64str(.*?)base64str/g, (match, p1) => {
     console.log(p1)
     return Stable_decoder(p1)
-}).replaceAll("bracketo","(").replaceAll("bracketc",")")
-  $(`#${id}`).attr("content",Stable_encoder(content));
+  }).replaceAll("bracketo", "\\(")
+  .replaceAll("bracketc", "\\)")
+  .replaceAll("bracketsquareo", "\\[")
+  .replaceAll("bracketsquarec", "\\]")
+  .replace(/<em>(.*?)<\/em>/g, (match, p1) => {
+    return p1; // This returns just the text inside the <em> tags
+});
+  $(`#${id}`).attr("content", Stable_encoder(content));
   $(`#${id}`).find(`div`).first().html(m)
   MathJax.typesetPromise();
-  code_block_handler().then(r=>{
-  NormalCodeBlock()
-  console.log('final')
+  code_block_handler().then(r => {
+    NormalCodeBlock()
+    console.log('final')
   })
 }
-function create_ai_id(){
+function create_ai_id() {
   let made_class = generate_class()
   let loading_template = `
   <div class="p-4 w-full">
@@ -137,7 +147,7 @@ async function code_block_handler() {
       console.log('match Not Satisifed')
     }
   });
-  return(true)
+  return (true)
 }
 
 // Mock function to generate unique IDs
