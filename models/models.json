@@ -389,7 +389,7 @@
         },
         "OpenRouter": {
             "provider_id": "openrouter",
-            "function": "langchain_connect",
+            "function": "openai_completions",
             "api_url": "https://openrouter.ai/settings/keys",
             "models": [
                 "meta-llama/llama-3.2-11b-vision-instruct:free",
@@ -410,7 +410,11 @@
                 "huggingfaceh4/zephyr-7b-beta:free"
             ],
             "default_api": [],
-            "flash_tool": false
+            "flash_tool": false,
+            "functions_settings": {
+                "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+                "tools": false
+            }
         },
         "Workers AI": {
             "provider_id": "cloudflare",
