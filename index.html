@@ -17,8 +17,10 @@
   </script> -->
   <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <!-- <script>
@@ -173,226 +175,37 @@
     class='text-white p-2 spcae-y-2  max-h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute overflow-y-auto z-50'>
 
   </div>
-  <!--Ssetting Toggle -->
-  <div onclick="settings()" id='setting_rm_click' class="absolute w-screen h-screen z-10 opacity-5 bg-black hidden">
-  </div>
-  <!-- /Setting Toggle -->
-  <!-- Settings Main -->
-  <div id="setting_main" class="hidden absolute w-full h-full z-20 bg-dark-2 text-light-1">
-    <div class="h-[5%] bg-dark-1 flex justify-end items-center">
-      <img class="mx-2 cursor-pointer" onclick="settings()" src="assests/x.svg" alt="close" srcset="assests/x.svg">
-    </div>
-    <div class="w-full h-[95%] flex p-2 space-x-2">
-      <div class="w-[20%] h-full flex flex-col space-y-2 p-2 ">
-        <div onclick="hide_show('models',['models','apperance','preferences','other'])"
-          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Models</div>
-        <div onclick="hide_show('apperance',['models','apperance','preferences','other'])"
-          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Apperance
-        </div>
-        <div onclick="hide_show('preferences',['models','apperance','preferences','other'])"
-          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Preferneces
-        </div>
-        <div onclick="hide_show('other',['models','apperance','preferences','other'])"
-          class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Other</div>
+
+  <div class="main h-full w-[100%] bg-dark-1">
+    <div class="flex flex-col w-full h-full">
+      <div class="h-[10%] sm:h-[7.5%] md:h-[7.5%] bg-black flex justify-center items-center text-sm">
+        <div onclick="select_model()" id="display_provider_and_model"
+          class="p-2 bg-gray-900 text-gray-300 rounded-lg hover:bg-gray-800"></div>
       </div>
-      <div class="w-[80%] p-2 ">
-        <div id="models" class="flex w-full h-full space-x-2">
-          <div class="w-[20%] h-full flex flex-col space-y-2">
-            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
-              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Chat
-            </div>
-            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
-              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Image
-            </div>
-            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
-              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Visual
-            </div>
-            <div onclick="hide_show('model-chat',['model-chat','model-image','model-visual','model-embedding'])"
-              class="w-full rounded-lg hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 cursor-pointer">Embedding
-            </div>
-          </div>
-          <div class="w-[80%] h-full">
-            <div id="model-chat" class="w-full h-full">
-              <div class="w-[50%] mx-[25%] h-[10%] p-2 flex justify-between items-center">
-                <div onclick="hide_show('model-chat-select',['model-chat-select','model-chat-search'])"
-                  class=" hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
-                  Select</div>
-                <div onclick="hide_show('model-chat-search',['model-chat-select','model-chat-search'])"
-                  class="hover:bg-dark-2 rouned-md hover:border-b-2 hover:border-green-600 cursor-pointer px-4">
-                  Search</div>
-              </div>
-              <div id="model-chat-select" class="w-full h-[90%] p-2 border-2 rounded-xl ">
-                <div class="flex w-full p-4">
-                  <div class="w-[30%]"><label for="">Select Provider</label></div>
-                  <div class="w-[70%]">
-                    <select onchange="set_model_list()" name="chat-provider" class="bg-dark-1 text-light-1 w-[80%]"
-                      id="chat-provider">
-                      <!-- <option value="groq">Groq</option>
-                      <option value="lepton">Lepton</option>
-                      <option value="gemini">Gemini</option>
-                      <option value="cohere">Cohere</option>
-                      <option value="huggingface">Huggingface</option> -->
-                    </select>
-                  </div>
-                </div>
-                <div class="flex w-full p-4">
-                  <div class="w-[30%]"><label for="">Select Model</label></div>
-                  <div class="w-[70%]">
-                    <select onchange="set_api_list()" name="chat-model" class="bg-dark-1 text-light-1 w-[80%]"
-                      id="chat-model">
-                      <!-- <option value="groq">Groq</option>
-                      <option value="lepton">Lepton</option>
-                      <option value="gemini">Gemini</option>
-                      <option value="cohere">Cohere</option>
-                      <option value="huggingface">Huggingface</option> -->
-                    </select>
-                  </div>
-                </div>
-                <div class="flex w-full p-4">
-                  <div class="w-[30%]"><label for="">Select API</label></div>
-                  <div class="w-[70%] flex">
-                    <select name="chat-api" onchange="set_defaults()" class="bg-dark-1 p-2 text-light-1 w-[80%]"
-                      id="chat-api">
-                      <!-- <option value="groq">Groq</option>
-                      <option value="lepton">Lepton</option> -->
-                    </select>
-                    <img onclick="add_api($('#chat-provider').val())"
-                      class="aspect-square max-h-[5vh] rounded-full flex-grow" src="assests/plus-circle.svg"
-                      style='filter:invert(1)' alt="">
-                  </div>
-                </div>
-                <script>
-                  $('#chat-provider').select2()
-                  $('#chat-model').select2()
-                  $('#chat-api').select2()
-                </script>
-              </div>
-              <div id="model-chat-search" class="hidden w-full h-[90%]">
-                <div class="h-full w-full overflow-auto">
-                  <div class="w-full h-[10vh] flex justify-between items-center p-2">
-                    <input onkeypress="update_model_search()" id="search-model"
-                      class="h-[9vh] w-full bg-dark-1 text-light-1 rounded-lg p-2" type="text"
-                      placeholder="Search for Model or Provider">
-                  </div>
-                  <div class="h-[90%] w-full">
-                    <table class="table-auto w-full h-full overflow-y-auto text-center">
-                      <thead>
-                        <tr>
-                          <th>Provider</th>
-                          <th>Model</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody id="chat-provider-search-list">
-                        <tr class="h-[7vh] hover:border-green-600 border-2">
-                          <td>Groq</td>
-                          <td>Groq</td>
-                          <td>
-                            <div class="w-[5%] aspect-square rounded-full bg-green-600 ml-[47.5%]"></div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="'model-image" class="hidden w-full h-full"></div>
-            <div id="'model-visual" class="hidden w-full h-full"></div>
-            <div id="'model-embedding" class="hidden w-full h-full"></div>
+      <div class="h-[82.5%] md:h-[80%] sm:h-[80%] flex justify-center items-center flex-col w-full">
+        <div class="w-full flex h-full">
+          <div style="font-family: 'Merriweather', serif" id='message_container'
+            class="scrollable-div w-full h-full overflow-y-auto p-2 space-y-4 flex flex-col items-center text-white">
           </div>
         </div>
-        <div id="apperance" class="hidden w-full h-full"></div>
-        <div id="preferences" class="hidden w-full h-full"></div>
-        <div id="other" class="hidden w-full h-full"></div>
+
       </div>
-    </div>
-
-  </div>
-  <!-- /Setting main -->
-  <div class="w-full h-full flex">
-    <div class="p-2 nav-barn h-full w-[20%] md:w-[10%] lg:w-[7%] xl:w-[20%] bg-dark-2 flex flex-col justify-between">
-      <ul class="w-full h-[10vh] bottom-0 grid grid-cols-1 gap-2 p-2 space-y-2">
-        <li onclick="location.reload()"
-          class="flex w-full h-[7vh] jusitfy-between rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 px-1 py-2 justify-center items-center space-x-2 cursor-pointer">
-          <img class="h-full aspect-square" src="https://img.icons8.com/sf-black-filled/64/FFFFFF/plus-math.png"
-            alt="plus-math" />
-          <span>New Conversation</span>
-        </li>
-
-      </ul>
-      <ul class="flex-grow w-full overflow-y-auto" style="-ms-overflow-style: none;scrollbar-width: none;">
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat</li>
-        <!-- <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li>
-        <li class="w-full p-2 rounded-md overflow-clip hover:border-2 text-light-1">Chat No 1</li> -->
-      </ul>
-      <ul class="w-full bottom-0 grid grid-cols-4 gap-1">
-        <li onclick="location.reload()"
-          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
-          <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/home-page.png" alt="home-page" />
-        </li>
-        <li onclikc="alert('Comming Soon')"
-          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
-          <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/code.png" alt="code" />
-        </li>
-        <li onclick="alert('Comming Soon')"
-          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
-          <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/documents.png" alt="documents" />
-        </li>
-        <li onclick="settings()"
-          class="w-full rounded-lg text-light-1 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
-          <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/administrative-tools.png"
-            alt="administrative-tools" />
-        </li>
-
-      </ul>
-      <!-- <ul class="w-full bottom-0 flex-col h-auto p-2 space-y-2">
-        <li
-          class="w-full rounded-lg text-light-1 bottom-0 hover:bg-dark-1 hover:border-light-1 hover:border-2 p-2 aspect-square flex justify-center items-center">
-          <img src="assests/arrow-left.svg" style="filter: invert(1);" alt="" srcset="">
-        </li>
-      </ul> -->
-    </div>
-    <div class="main h-full w-[95%] bg-dark-1">
-      <div class="flex flex-col w-full h-full p-2">
-        <div class="h-[90%] flex flex-col w-full">
-          <div class="w-full flex h-full">
-            <div class="w-[7%] h-full flex justify-center items-center">
-              <ul class="w-auto h-auto space-y-10">
-                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-2">
-                  <img src="assests/arrow-up.svg" alt="" srcset="">
-                </li>
-                <li class="w-full aspect-square p-2 flex justify-center items-center rounded-full hover:bg-dark-2">
-                  <img src="assests/arrow-down.svg" alt="" srcset="">
-                </li>
-              </ul>
-            </div>
-            <div style="font-family: 'Merriweather', serif" id='message_container'
-              class="scrollable-div w-[93%] h-full overflow-y-auto p-2 space-y-4 flex flex-col items-center text-white">
-            </div>
-          </div>
-
-        </div>
-        <div class="h-[10%] bottom=0 w-full flex justify-center items-center ">
-          <div class="w-[90%] h-full flex justify-between space-x-2">
-            <textarea id='send_input' style="resize: none;" name="" id=""
-              class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
-            <button onclick="chain_started()" id='send_button'
+      <div class="h-[10%] bottom=0 w-full flex justify-center items-center ">
+        <div class="w-[95%] sm:w-[90%] md:w-[90%] p-2 h-full flex justify-between space-x-2">
+          <!-- <button
               class="h-full bg-dark-2 rounded-full aspect-square flex justify-center items-center p-4">
               <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/sent.png" alt="" srcset="">
-            </button>
-          </div>
+            </button> -->
+          <textarea id='send_input' style="resize: none;" name="" id=""
+            class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
+          <button onclick="chain_started()" id='send_button'
+            class="h-full bg-dark-2 rounded-full aspect-square flex justify-center items-center p-1">
+            <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/sent.png" alt="" srcset="">
+          </button>
         </div>
       </div>
     </div>
+  </div>
   </div>
   <!-- Here is the intialization script -->
   <script>
@@ -448,7 +261,8 @@
       "js/info/main.js",
       "js/store/main.js",
       "js/tools.js",
-      "js/load_settings_new.js",
+      // "js/load_settings_new.js",
+      "js/select_model.js"
     ];
 
     scripts.forEach(script => {
@@ -460,6 +274,23 @@
     scriptElement.src = `js/chat/functions.js?r=${timestamp}`;
     scriptElement.type = `module`
     document.body.appendChild(scriptElement);
+
+    // set Default Model and provider
+
+    
+
+    // display_provider_and_model
+    setInterval(() => {
+      if ($.parseJSON(getCookie('default')) == null || $.parseJSON(getCookie('default')) == undefined) {
+      setCookie('default', {
+        "model": "72B",
+        "provider": "qwen_space",
+        "api": "No API",
+        "api_name": "default-1"
+      })
+    }
+      $("#display_provider_and_model").html(`${$.parseJSON(getCookie("default")).provider.toUpperCase()} ${$.parseJSON(getCookie("default")).model}`)
+    }, 2000)
 
   </script>
 
