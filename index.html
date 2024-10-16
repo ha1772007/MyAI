@@ -127,7 +127,7 @@
 
 <body class="w-screen h-screen">
 
-  <div id="document_upload"
+  <!-- <div id="document_upload"
     class="hidden absolute w-[50vw] h-[70vh] bg-dark-2 mx-[25vw] my-[15vh] rounded-md shadow-white shadow-sm">
     <div class="w-full h-full flex flex-col p-4 space-y-2">
       <div id="" class="h-1/2 w-full flex">
@@ -168,7 +168,7 @@
 
     </div>
 
-  </div>
+  </div> -->
   </div>
 
   <div id="infobox"
@@ -180,7 +180,7 @@
     <div class="flex flex-col w-full h-full">
       <div class="h-[10%] sm:h-[7.5%] md:h-[7.5%] bg-black flex justify-center items-center text-sm">
         <div onclick="select_model()" id="display_provider_and_model"
-          class="p-2 bg-gray-900 text-gray-300 rounded-lg hover:bg-gray-800"></div>
+          class="transition-all ease-out duration-500 cursor-pointer drop-shadow-md hover:drop-shadow-lg hover:shadow-white p-2 bg-gray-900 text-gray-300 rounded-lg hover:bg-gray-800"></div>
       </div>
       <div class="h-[82.5%] md:h-[80%] sm:h-[80%] flex justify-center items-center flex-col w-full">
         <div class="w-full flex h-full">
@@ -199,8 +199,8 @@
           <textarea id='send_input' style="resize: none;" name="" id=""
             class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
           <button onclick="chain_started()" id='send_button'
-            class="h-full bg-dark-2 rounded-full aspect-square flex justify-center items-center p-1">
-            <img src="https://img.icons8.com/sf-regular-filled/96/FFFFFF/sent.png" alt="" srcset="">
+            class="h-full bg-dark-2 rounded-full aspect-square flex justify-center items-center p-2">
+            <img width="100" height="100" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/up--v1.png" alt="left-up2"/>
           </button>
         </div>
       </div>
@@ -276,8 +276,6 @@
     document.body.appendChild(scriptElement);
 
     // set Default Model and provider
-
-    
 
     // display_provider_and_model
     setInterval(() => {

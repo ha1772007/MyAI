@@ -108,10 +108,10 @@ function insert_model_list() {
       let value = chat_models[key];
       value['models'].forEach(element => {
         let this_template = `
-        <div onclick="select_key('${element}','${value['provider_id']}')" model_search="${element} ${key}" class="w-[95%] ml-[2.5%] h-[12%] flex p-2 border-2 rounded-xl border-gray-400 hover:border-blue-500 space-x-2">
+        <div onclick="select_key('${element}','${value['provider_id']}')" model_search="${element} ${key}" class="cursor-pointer w-[95%] ml-[2.5%] h-[12%] bg-black hover:shadow-xl shadow-water flex p-2 hover:border-1 transition-all duration-300 ease-out rounded-xl hover:border-white space-x-2">
           <div class="h-full aspect-square rounded-full">
             <img class="w-full h-full"
-              src="https://cdn-avatars.huggingface.co/v1/production/uploads/66935cee39002fc0569c2943/Qv8QPbkgoKE3wR4jTzHiy.png"
+              src="${value?.meta?.image?.[element] || 'assests/myai.png'}"
               alt="" srcset="">
           </div>
           <div class="flex-grow flex h-full text-white">

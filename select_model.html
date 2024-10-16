@@ -137,7 +137,7 @@
     </div>
   </div> -->
   <div class="w-full h-full flex">
-    <div class="bg-black text-white w-[20%] p-2 py-4 space-y-2 sm:block md:block hidden">
+    <!-- <div class="bg-black text-white w-[20%] p-2 py-4 space-y-2 sm:block md:block hidden">
       <span class="font-bold">Provider</span><br>
       <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
           for="">Groq</label></span><br>
@@ -151,10 +151,8 @@
           AI</label></span><br>
       <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
           for="">Github</label></span><br>
-      <!-- <span class="space-x-2 w-full"><input type="checkbox" name="groq" id="" checked><label
-          for="">Huggingface</label></span><br> -->
-    </div>
-    <div class="bg-[#2a2929] w-full h-full p-2 space-y-2">
+    </div> -->
+    <div class="bg-[#323232] w-full h-full p-2 space-y-2">
       <div class="w-[90%] mx-[5%] flex h-[7%] bg-white rounded-xl p-2 ">
         <input onkeypress="model_search()" type="text" name="" id="model_search_value"
           placeholder="Enter Name Of Model to Search"
@@ -165,10 +163,10 @@
         </button>
 
       </div>
-      <div id="model_div" class="space-y-2 h-[92%] w-full overflow-y-auto">
+      <div id="model_div" class="space-y-2 h-[92%] w-full overflow-y-auto text-white">
         <div model_search=""
-          class="w-[95%] ml-[2.5%] h-[12%] flex p-2 border-2 rounded-xl border-gray-400 hover:border-blue-500 space-x-2">
-          <div class="h-full aspect-square rounded-full">
+          class="cursor-pointer w-[95%] ml-[2.5%] h-[12%] bg-black hover:shadow-xl shadow-water flex p-2 hover:border-1 transition-all duration-300 ease-out rounded-xl hover:border-white space-x-2">
+          <div class="h-full aspect-square rounded-full ">
             <img class="w-full h-full"
               src="https://cdn-avatars.huggingface.co/v1/production/uploads/66935cee39002fc0569c2943/Qv8QPbkgoKE3wR4jTzHiy.png"
               alt="" srcset="">
