@@ -1,7 +1,7 @@
 {
     "Chat Models": {
         "qwen_space": {
-            "provider_id": "qwen",
+            "provider_id": "qwen_space",
             "function": "qwen_space",
             "api_url": "NO API Key Required",
             "models": [
@@ -12,7 +12,7 @@
             ],
             "flash_tool": false
         },
-        "Groq": {
+        "groq": {
             "provider_id": "groq",
             "function": "openai_completions",
             "api_url": "https://console.groq.com/keys",
@@ -35,7 +35,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Hyperbolic": {
+        "hyperbolic": {
             "provider_id": "hyperbolic",
             "function": "openai_completions",
             "api_url": "https://app.hyperbolic.xyz/settings",
@@ -62,7 +62,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Mistral": {
+        "mistral": {
             "provider_id": "mistral",
             "function": "openai_completions",
             "api_url": "https://console.mistral.ai/api-keys/",
@@ -87,7 +87,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Together AI": {
+        "together": {
             "provider_id": "together",
             "function": "openai_completions",
             "api_url": "https://api.together.ai/settings/api-keys",
@@ -274,7 +274,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Github": {
+        "github": {
             "provider_id": "github",
             "function": "openai_completions",
             "api_url": "https://github.com/settings/tokens",
@@ -308,7 +308,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "AI21": {
+        "ai21": {
             "provider_id": "ai21",
             "function": "openai_completions",
             "api_url": "",
@@ -322,7 +322,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Lepton AI": {
+        "lepton": {
             "provider_id": "lepton",
             "function": "langchain_connect",
             "api_url": "https://dashboard.lepton.ai/",
@@ -342,7 +342,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Gemini": {
+        "gemini": {
             "provider_id": "gemini",
             "function": "langchain_connect",
             "api_url": "https://aistudio.google.com/app/apikey",
@@ -372,7 +372,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Cohere": {
+        "cohere": {
             "provider_id": "cohere",
             "function": "langchain_connect",
             "api_url": "https://dashboard.cohere.com/api-keys",
@@ -387,7 +387,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "OpenRouter": {
+        "openrouter": {
             "provider_id": "openrouter",
             "function": "openai_completions",
             "api_url": "https://openrouter.ai/settings/keys",
@@ -416,7 +416,7 @@
                 "tools": false
             }
         },
-        "Workers AI": {
+        "cloudflare": {
             "provider_id": "cloudflare",
             "function": "langchain_connect",
             "api_url": "https://dash.cloudflare.com/YOUR_ACCOUNT_ID/ai/workers-ai/api-quick-start",
@@ -460,7 +460,7 @@
             "default_api": [],
             "flash_tool": false
         },
-        "Segmind": {
+        "segmind": {
             "provider_id": "segmind",
             "function": "langchain_connect",
             "api_url": "https://cloud.segmind.com/console/api-keys",
