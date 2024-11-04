@@ -1,3 +1,9 @@
+function base64UrlEncode(str) {
+  return btoa(str)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, ''); // Remove trailing '='
+}
 function select_model() {
   location.href = "/select_model.html";
 
@@ -103,10 +109,28 @@ function insert_model_list() {
   if (!models) return; // Ensure models is defined
 
   let chat_models = models['Chat Models'];
+  let favourite_model_list = $.parseJSON(getCookie("favourite"))?.models || [];
+  if(favourite_model_list === undefined || favourite_model_list === null){
+    favourite_model_list = null
+  }
   for (let key in chat_models) {
     if (chat_models.hasOwnProperty(key)) {
       let value = chat_models[key];
       value['models'].forEach(element => {
+        let onclick_att =  null;
+        let image_src = "https://img.icons8.com/ios/50/FFFFFF/star--v1.png";
+        for(let index in favourite_model_list){
+          if(favourite_model_list[index].model === element && favourite_model_list[index].provider === key){
+            console.log("Found in favourite List")
+            onclick_att = `remove_favourite('${element}','${key}')`
+            image_src = "https://img.icons8.com/material-rounded/24/f71717/star--v1.png"
+            break;
+          }
+        }
+        if(onclick_att === null){
+          onclick_att = `add_favourite(event,'${element}','${key}')`
+        }
+        // 
         let this_template = `
         <div onclick="select_key('${element}','${value['provider_id']}')" model_search="${element} ${key}" class="cursor-pointer w-[95%] ml-[2.5%] h-[12%] bg-black hover:shadow-xl shadow-water flex p-2 hover:border-1 transition-all duration-300 ease-out rounded-xl hover:border-white space-x-2">
           <div class="h-full aspect-square rounded-full">
@@ -116,7 +140,10 @@ function insert_model_list() {
           </div>
           <div class="flex-grow flex h-full text-white">
             <div class="w-full h-full flex flex-col  space-y-1">
-              <div class="h-[60%] font-bold">${element}</div>
+            <div class="h-[60%] w-full font-bold flex justify-between">
+                <div>${element}</div>
+                <div onclick="${onclick_att}" ><img  id="favouritie_${base64UrlEncode(element)}_${base64UrlEncode(key)}" width="24" height="24" src="${image_src}" alt="star--v1"/></div>
+              </div>
               <div class="h-[40%] text-sm space-x-2 flex">
                 <span class="">text-generation</span>
                 <span class="">${key}</span>
@@ -132,7 +159,37 @@ function insert_model_list() {
   }
 }
 
+function add_favourite(event, model, provider) {
+  event.stopPropagation();
+  console.log('Set Favourite Model Called');
 
+  let default_list = $.parseJSON(getCookie('favourite') || "{}") || {};
+  if (default_list == null || typeof default_list === 'undefined' || !default_list.models) {
+    default_list = { models: [] };
+  }
+
+  let model_list_cookies = default_list.models;
+
+  let alreadyExists = false; // Flag to track if the model is already present
+
+  for (let index = 0; index < model_list_cookies.length; index++) { // Use a regular for loop for arrays
+    let z = model_list_cookies[index];
+    if (z.model === model && z.provider === provider) {
+      console.log("Error: Model Already In favourite List");
+      create_info("Model Already In Favorite List", "danger");
+      alreadyExists = true;
+      break; // Exit the loop if found
+    }
+  }
+
+  // Add the model ONLY if it doesn't already exist
+  if (!alreadyExists) {
+    model_list_cookies.push({ model: model, provider: provider });
+    default_list.models = model_list_cookies;
+    setCookie("favourite", default_list); // Stringify before setting the cookie
+    $(`#favouritie_${base64UrlEncode(model)}_${base64UrlEncode(provider)}`).attr("src", "https://img.icons8.com/material-rounded/24/f71717/star--v1.png");
+  }
+}
 // select_model.js (56-67)
 function model_search() {
   let model_search_value = $("#model_search_value").val().trim();
