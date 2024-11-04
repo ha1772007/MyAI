@@ -169,18 +169,90 @@
     </div>
 
   </div> -->
-  </div>
 
   <div id="infobox"
-    class='text-white p-2 spcae-y-2  max-h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute overflow-y-auto z-50'>
+    class=' text-white p-2 spcae-y-2  max-h-[95%] ml-[70vw] flex flex-col items-center w-[30vw] absolute overflow-y-auto z-50'>
 
   </div>
+  <div onclick="$(`#menu_r`).toggle();$(`#menu_r_toggle`).toggle()" id="menu_r_toggle"
+    class="absolute w-screen h-screen z-10 bg-black opacity-25 "></div>
+  <!-- <div id="menu_r"
+    class="fixed top-0 right-0 z-20 h-screen bg-black text-white sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 2xl:w-2/5">
+    <div class="h-full w-full p-2 flex flex-col space-y-2">
+      <div class="w-full">
+        <div class="hover_top group border-white border-b-2 ">
+          <div
+            class="hover_main w-full flex flex-col cursor-pointer space-y-2 py-2 px-2 hover:bg-neutral-950 transition-all duration-300 ease-in-out hover:shadow-sm hover:shadow-neutral-700 hover:px-4">
+            <div class="text-lg justify-between flex w-full items-center">
+              <div class="flex justify-center items-center p-1 space-x-2">
+                <img class="max-h-[3vh]" src="https://img.icons8.com/ios-filled/100/FFFFFF/brain.png" alt="brain"/>
+                <div>Select Model</div>
+              </div>
+              <div>
+                < </div>
+              </div>
+              <div class="text-sm text-neutral-300">Select Model From Your Favourite List. You Can Also Add More Model
+              </div>
+            </div>
+            <div id="favourite_models"
+              class="hover_display w-full hidden group-hover:flex flex-wrap p-2 gap-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out max-h-0 overflow-hidden group-hover:max-h-[100vh] duration-1000 ">
+                           
+            </div>
+          </div>
+        </div>
+        <div class="hover_top group border-white border-b-2 ">
+          <div
+            class="hover_main w-full flex flex-col cursor-pointer py-2 px-2 hover:bg-neutral-950 transition-all duration-300 ease-in-out hover:shadow-sm hover:shadow-neutral-700 hover:px-4">
+            <div class="text-lg justify-between flex w-full items-center">
+              <div class="flex justify-center items-center p-1 space-x-2">
+                <img class="max-h-[3vh]" src="https://img.icons8.com/ios-filled/50/FFFFFF/maintenance.png" alt="Tools"/>
+                <div>Tools</div>
+              </div>
+              <div>
+                < </div>
+              </div>
+              <div class="text-sm text-neutral-300">Select Which Tools To Use and Which Not also to configure them
+              </div>
+            </div>
+            <div
+              class="hover_display w-full hidden group-hover:flex flex-wrap p-2 gap-2 opacity-0 group-hover:opacity-100 transition-all ease-in-out max-h-0 overflow-hidden group-hover:max-h-[100vh] duration-1000 ">
+              <div class="w-full flex">
+                <div class="text-sm flex flex-col space-y-2">
+                  <div id="tool_parent_search" class="px-2 py-1 rounded-l-lg">
+                    <div id="tool_search"
+                      onclick="set_tool_config('search','tool_config_select',['Fast','Optimized','Expert'],'Optimized')"
+                      class="tool_name inline-block cursor-pointer rounded-md text-neutral-300 hover:text-white px-4 py-2 hover:bg-neutral-900 hover:px-6 transition-all ease-in-out duration-300">
+                      Search</div>
+                  </div>
+                  <div id="tool_parent_tool2" class="px-2 py-1 rounded-l-lg">
+                    <div id="tool_tool2"
+                      onclick="set_tool_config('tool2','tool_config_select',['Fast','Optimized','Expert'],'Optimized')"
+                      class="tool_name inline-block cursor-pointer rounded-md text-neutral-300 hover:text-white px-4 py-2 hover:bg-neutral-900 hover:px-6 transition-all ease-in-out duration-300">
+                      tool2</div>
+                  </div>
+                </div>
+                <div id="tool_config_select" class="p-2 rounded-r-lg text-sm flex flex-col space-y-2">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
 
   <div class="main h-full w-[100%] bg-dark-1">
     <div class="flex flex-col w-full h-full">
-      <div class="h-[10%] sm:h-[7.5%] md:h-[7.5%] bg-black flex justify-center items-center text-sm">
+      <div class="h-[10%] sm:h-[7.5%] md:h-[7.5%]  bg-black flex justify-between px-2 items-center text-sm">
         <div onclick="select_model()" id="display_provider_and_model"
-          class="transition-all ease-out duration-500 cursor-pointer drop-shadow-md hover:drop-shadow-lg hover:shadow-white p-2 bg-gray-900 text-gray-300 rounded-lg hover:bg-gray-800"></div>
+          class="transition-all ease-out duration-500 cursor-pointer drop-shadow-md hover:drop-shadow-lg hover:shadow-white p-2 bg-neutral-900 text-neutral-300 rounded-lg hover:bg-neutral-800">
+        </div>
+        <div onclick="$(`#menu_r`).toggle();$(`#menu_r_toggle`).toggle()"
+          class="h-full p-2 hover:p-1 aspect-square transition-all ease-in-out duration-500">
+          <img
+            class=" rounded-full  h-full aspect-square transition-all duration-500 ease-in-out hover:bg-white hover:bg-opacity-20"
+            src="https://img.icons8.com/?size=100&id=2969&format=png&color=FFFFFF" alt="gear" />
+        </div>
       </div>
       <div class="h-[82.5%] md:h-[80%] sm:h-[80%] flex justify-center items-center flex-col w-full">
         <div class="w-full flex h-full">
@@ -200,12 +272,11 @@
             class="h-full flex-grow rounded-lg p-2 indent-1"></textarea>
           <button onclick="chain_started()" id='send_button'
             class="h-full bg-dark-2 rounded-full aspect-square flex justify-center items-center p-2">
-            <img width="100" height="100" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/up--v1.png" alt="left-up2"/>
+            <img width="100" height="100" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/up--v1.png" alt="left-up2" />
           </button>
         </div>
       </div>
     </div>
-  </div>
   </div>
   <!-- Here is the intialization script -->
   <script>
@@ -260,6 +331,7 @@
       "js/websearch/webscout.js",
       "js/info/main.js",
       "js/store/main.js",
+      "js/GUI/menu.js",
       "js/tools.js",
       // "js/load_settings_new.js",
       "js/select_model.js"
@@ -280,13 +352,13 @@
     // display_provider_and_model
     setInterval(() => {
       if ($.parseJSON(getCookie('default')) == null || $.parseJSON(getCookie('default')) == undefined) {
-      setCookie('default', {
-        "model": "72B",
-        "provider": "qwen_space",
-        "api": "No API",
-        "api_name": "default-1"
-      })
-    }
+        setCookie('default', {
+          "model": "72B",
+          "provider": "qwen_space",
+          "api": "No API",
+          "api_name": "default-1"
+        })
+      }
       $("#display_provider_and_model").html(`${$.parseJSON(getCookie("default")).provider.toUpperCase()} ${$.parseJSON(getCookie("default")).model}`)
     }, 2000)
 

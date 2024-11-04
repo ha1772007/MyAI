@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@2.0.3/dist/showdown.min.js"></script>
+    <title>Search</title>
+</head>
+
+<body class="h-screen w-screen overflow-hidden bg-neutral-950 text-neutral-100">
+    <div id="chat_with_webpage" class="hidden absolute z-20  bg-black w-screen h-screen">
+        <div class="h-[5vh] flex w-full justify-end p-2">
+            <div onclick="$('#chat_with_webpage').hide()" class="text-lg cursor-pointer">x</div>
+        </div>
+        <div class="split h-[95vh] w-full">
+            <div id="split-0" class="bg-red-400 panel-1">
+                <iframe id="iframe" src="" frameborder="0" class="w-full h-full"></iframe>
+            </div>
+            <div id="split-1" class="flex flex-col panel-2 py-2  w-full">
+                <div id="conversation_history" style="
+                color: white;
+                scrollbar-width: thin;
+                scrollbar-color: #1f5757 #1a1a1a;" class="flex flex-col h-[93%] p-2 space-y-2 overflow-y-auto">
+                </div>
+                <div class="w-full h-[7%] px-2  rounded-md space-y-1">
+
+                    <div class="h-full w-full">
+                        <div class="w-full h-full border-2 rounded-lg border-cyan-950 bg-black flex flex-row-reverse">
+                            <button onclick="make_chat()" class="h-full aspect-square p-2 rounded-full"><img
+                                    class="w-full h-full " src="https://img.icons8.com/ios-glyphs/30/FFFFFF/up--v1.png"
+                                    alt="left-up2" /></button>
+                            <textarea style="resize: none;color: white;
+                        scrollbar-width: thin;
+                        scrollbar-color: #1f5757 #1a1a1a;"
+                                class="border-0 focus:border-0 focus:ring-0 hover:border-0 w-4/5 flex-grow h-full bg-black rounded-md p-1 outline-none"
+                                name="" id="conversation_message"></textarea>
+                        </div>
+                    </div>
+                    <script>
+                        setInterval(() => {
+                            $("#selected_text").html(window.getSelection().toString().trim())
+                        }, 100); 
+                    </script>
+                </div>
+            </div>
+        </div>
+        <script>
+            Split(['#split-0', '#split-1'], {
+                sizes: [70, 30],
+                minSize: 0,
+                gutterSize: 8,
+            })
+        </script>
+        <style>
+            .split {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .gutter {
+                background-color: rgb(8, 145, 178);
+                background-repeat: no-repeat;
+                background-position: 50%;
+            }
+
+            .gutter.gutter-horizontal {
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+                cursor: col-resize;
+            }
+        </style>
+
+    </div>
+    <div onclick="$('#content_view').hide()" id="content_view"
+        class="hidden absolute justify-center items-center z-10 bg-black bg-opacity-25 w-screen h-screen">
+        <div id="content_view_inner" onclick="event.stopPropagation();" style="
+        background-color: #1a1a1a; /* Dark background */
+        color: white;
+        scrollbar-width: thin;
+        scrollbar-color: #1f5757 #1a1a1a;"
+            class="p-2 text-base text-neutral-300 lg:w-[60vw] xl:w-[60vw] 2xl:w-[60vw] sm:w-screen md:w-screen h-[60vh] border-2 border-cyan-950 text-wrap bg-neutral-900 rounded-xl overflow-y-auto">
+        </div>
+
+
+
+    </div>
+    <div class="w-full h-full flex flex-col">
+        <div class="w-full h-[15vh] p-2 px-5 flex items-center">
+            <div class="px-3 text-lg flex items-center h-full">
+                <div class="h-full apsect-square  rounded-full"><img class="h-full aspect-square" src="myai.png" alt=""
+                        srcset=""></div>
+            </div>
+            <div class="w-1/2 h-[8vh] rounded-xl bg-neutral-800 p-1 flex justify-between items-center">
+                <div class=" w-full p-2 space-x-2 flex">
+                    <input id="results_search"
+                        class="h-full bg-neutral-800 text-white w-full rounded-md outline-none shadow-none p-1"
+                        type="text" placeholder="Search Here" name="" id="">
+                </div>
+                <div onclick="make_search()"
+                    class="h-full rounded-full p-2 hover:bg-neutral-800 transition-all duration-300 ease-in-out">
+                    <img src="https://img.icons8.com/?size=100&id=112468&format=png&color=FFFFFF"
+                        class="h-full w-full aspect-square" alt="" srcset="">
+                </div>
+                <script>
+                    function make_search() {
+                        location.href = `?q=${encodeURIComponent($("#results_search").val())}`
+                    }
+                </script>
+            </div>
+            <div
+                class="flex-grow px-5 sm:hidden md:hidden lg:hidden xl:flex 2xl:flex space-x-3 items-center text-neutral-200 p-2">
+                <div><a href="../">MyAI</a></div>
+                <div><a href="../">Github</a></div>
+            </div>
+        </div>
+        <div class="flex h-[85vh] flex-grow space-x-3 p-2 text-white">
+            <div class="w-3/4 h-full overflow-y-auto flex justify-center" style="
+            background-color: #1a1a1a; /* Dark background */
+            color: white;
+            scrollbar-width: thin;
+            scrollbar-color: #1f5757 #1a1a1a;">
+                <div id="results" class="space-y-2  results w-9/12 text-white">
+                    <div class="flex flex-col ">
+                        <div class="flex justify-between max-h-[6.6vh] space-x-2 items-center">
+                            <div class="image p-2 h-full aspect-square">
+                                <img class="h-full rounded-full aspect-square"
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAAAnklEQVR4AeTNIQiDQABG4b+u17X1aF6PK3YEO9iMJqPVau82y4FgMezS0oVLhqsHtrcqeqzDXv3CEz/6L4yTtZM3dnHmPTtjzXZAXKYVo4agkU2GI2Lloc6JDez1+flswMu1EQZ3xlE7lK8eKDkjtwE+crBMV+wesKmCiisGGepZIfQJpMj9SNb2MYWrChjVkULuCyCfRvsdmBieyQQAsoDk/9ryhFMAAAAASUVORK5CYII="
+                                    alt="" srcset="">
+                            </div>
+                            <div class="flex-grow flex text-white justify-end h-full flex-col text-lg">
+                                <div class=" text-sm">Hello</div>
+                                <div class=" text-sm">https://...</div>
+                            </div>
+                        </div>
+
+                        <div
+                            class=" mt-2 bg-cyan-950 transition-all duration-500 ease-in-out p-1 cursor-pointer hover:bg-neutral-800 rounded-lg line-clamp-3 hover:line-clamp-none animate-pulse text-sm  text-neutral-300">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur optio ullam
+                            molestiae
+                            officia, neque sit. Officiis et delectus maiores dicta illo! Fugiat recusandae
+                            consequatur
+                            explicabo deleniti, vel libero natus molestias?Lorem ipsum dolor sit amet consectetur
+                            adipisicing elit. Molestiae soluta ullam dolorem, eaque dolore architecto doloremque
+                            deserunt pariatur exercitationem aut ipsam amet reprehenderit, ducimus odit itaque?
+                            Magnam
+                            ducimus maiores velit! Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            Architecto,
+                            iure quae ipsam, laborum quidem dolores modi distinctio saepe possimus veniam beatae
+                            amet
+                            maiores! Itaque accusamus nulla nemo quaerat voluptates praesentium?</div>
+                        <div class="px-2 py-1 flex justify-between items-center text-sm">
+                            <div class="flex flex-grow space-x-2">
+                                <div
+                                    class="h-full max-h-[5vh] p-1 aspect-square rounded-full hover:bg-neutral-800 transition-all duration-300">
+                                    <img class="h-full  aspect-square"
+                                        src="https://img.icons8.com/sf-black/100/FFFFFF/chat.png" alt="chat" />
+                                </div>
+                            </div>
+                            <div class="flex space-x-2 text-neutral-400">
+                                <div class="px-1 hover:border-b-cyan-600 hover:border-b-2 cursor-pointer">Summary
+                                </div>
+                                <div class="px-1 hover:border-b-cyan-600 hover:border-b-2 cursor-pointer">Original
+                                </div>
+                                <div
+                                    class="px-1 hover:border-b-cyan-600 hover:border-b-2 cursor-pointer border-b-green-900 border-b-2">
+                                    Featured</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="flex flex-col w-1/4 h-full max-h-[85vh] border-cyan-900 border-2 hover:shadow-md hover:shadow-neutral-600 rounded-xl  transition-all duration-300 ease-in-out">
+                <div class="h-[10%] border-b-2 border-cyan-900 w-full flex justify-between items-center px-2">
+                    <div
+                        class="text-sm max-w-1/2 overflow-clip p-1 rounded-md hover:bg-neutral-800 transition-all duration-300 ease-in-out cursor-pointer">
+                        Provider/Model</div>
+                    <div class="flex-grow p-2 h-full flex justify-end items-center">
+                        <div onclick="regenerate()"
+                            class="h-full rounded-full p-1 aspect-square hover:bg-neutral-700 tarnsition-all duration-300 ease-in-out">
+                            <img class="h-full aspect-square"
+                                src="https://img.icons8.com/ios-glyphs/100/FFFFFF/repeat.png" alt="repeat" />
+                        </div>
+                        <div onclick="chat()"
+                            class="h-full rounded-full p-1 aspect-square hover:bg-neutral-700 tarnsition-all duration-300 ease-in-out">
+                            <img class="h-full aspect-square"
+                                src="https://img.icons8.com/ios-glyphs/100/FFFFFF/chat.png" alt="repeat" />
+                        </div>
+                    </div>
+                </div>
+                <div id="AI_answer" class="h-[90%] w-full p-2 overflow-y-auto" style="
+                background-color: #1a1a1a; /* Dark background */
+                color: white;
+                scrollbar-width: thin;
+                scrollbar-color: #1f5757 #1a1a1a;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let result_embedding = {}
+    </script>
+    <script src="../js/encoder/main.js?q=2"></script>
+    <script src="js/results.js?q="></script>
+    <script src="../js/chat/main-new.js?q=2"></script>
+    <script type="module" src="../js/chat/functions.js?q=2"></script>
+    <script src="../js/cookies.js?q=2"></script>
+    <script src="js/brain.js?q=2"></script>
+    <script src="js/make_chat.js"></script>
+    <script>
+        // Script to Execute in end
+        results();
+
+    </script>
+</body>
+
+</html>
