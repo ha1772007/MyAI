@@ -5,7 +5,7 @@ function base64UrlEncode(str) {
     .replace(/=+$/, ''); // Remove trailing '='
 }
 function select_model() {
-  location.href = "/select_model.html";
+  location.href = "MyAI/select_model.html";
 
 }
 let models;
@@ -67,7 +67,7 @@ function select_default_api(model, provider, api_name, api_key) {
     'api_name': api_name
   }
   setCookie('default', default_set)
-  location.href = "index.html"
+  location.href = "MyAI/index.html"
 }
 function add_api(product_id, provider, model) {
 
